@@ -1,0 +1,4 @@
+@import 'tailwindcss';
+
+@source '../../node_modules/@tvtempo/ui/src/lib';
+@import '../../node_modules/@tvtempo/ui/src/lib/index.css';

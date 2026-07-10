@@ -1,6 +1,8 @@
 {
 	"name": "@tvtempo/monorepo",
-	"scripts": {},
+	"scripts": {
+		"app#dev": "turbo run dev --filter @tvtempo/webapp..."
+	},
 	"devDependencies": {
 		"turbo": "^2.10.4",
 		"vite": "catalog:",
