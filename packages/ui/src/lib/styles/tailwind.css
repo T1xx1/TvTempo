@@ -1,0 +1,7 @@
+@utility corner-squircle {
+	corner-shape: squircle;
+}
+
+@utility image-pixelated {
+	image-rendering: pixelated;
+}

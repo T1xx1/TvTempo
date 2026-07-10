@@ -11,3 +11,6 @@ peerDependencyRules:
     - vite
   allowedVersions:
     vite: '*'
+allowBuilds:
+  '@tailwindcss/oxide': true
+  esbuild: true
