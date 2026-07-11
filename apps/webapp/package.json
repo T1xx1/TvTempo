@@ -13,6 +13,7 @@
 		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"@t1xx1/tsfix": "^1.1.1",
 		"@tailwindcss/vite": "^4.3.0",
 		"@tvtempo/ui": "workspace:*",
 		"bits-ui": "^2.18.1",
