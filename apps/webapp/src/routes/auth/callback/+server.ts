@@ -1,12 +1,27 @@
 import { redirect } from '@sveltejs/kit';
-import { tryCatch } from '@t1xx1/tsfix';
 
 import { traktClient } from '~/data/trakt.server';
 
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ url }) => {
-	console.log(url);
+export const GET: RequestHandler = async ({ cookies, url }) => {
+	const state = url.searchParams.get('state');
+
+	if (!state) {
+		throw redirect(302, '/auth?err=noState');
+	}
+
+	const storedState = cookies.get('state');
+
+	cookies.delete('state', {
+		path: '/',
+	});
+
+	if (storedState !== state) {
+		throw redirect(302, '/auth?err=unsecureExchange');
+	}
+
+	/*  */
 
 	const code = url.searchParams.get('code');
 
@@ -14,15 +29,21 @@ export const GET: RequestHandler = async ({ url }) => {
 		throw redirect(302, '/auth?err=noCode');
 	}
 
-	const { data, error } = await tryCatch(async () => {
-		return await traktClient.exchangeCodeForTokens(code);
+	const { access_token, refresh_token, expires_in } = await traktClient.exchangeCodeForTokens(code);
+
+	cookies.set('access_token', access_token, {
+		httpOnly: true,
+		secure: true,
+		sameSite: 'lax',
+		path: '/',
+		maxAge: expires_in,
+	});
+	cookies.set('refresh_token', refresh_token, {
+		httpOnly: true,
+		secure: true,
+		sameSite: 'lax',
+		path: '/',
 	});
 
-	console.log(data);
-
-	if (error || !data) {
-		throw redirect(302, '/auth?err=unsecureExchange');
-	}
-
-	return new Response(await data?.text());
+	throw redirect(302, '/dashboard');
 };
