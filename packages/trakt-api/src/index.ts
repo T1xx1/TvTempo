@@ -1,7 +1,9 @@
 import { assert } from '@t1xx1/tsfix';
 
 export class TraktClient {
-	readonly origin = 'https://api.trakt.tv';
+	readonly origin = 'https://trakt.tv';
+	readonly apiOrigin = 'https://api.trakt.tv';
+	readonly apiVersion = '2';
 
 	fetch = async (
 		path: string,
@@ -12,19 +14,20 @@ export class TraktClient {
 	) => {
 		const headers = {
 			'Content-Type': 'application/json',
-			'trakt-api-version': '2',
+			'User-Agent': `${this.appName}/${this.appVersion}`,
+			'trakt-api-version': this.apiVersion,
 			'trakt-api-key': this.clientId,
 		};
 
 		switch (method) {
 			case 'GET': {
-				return await fetch(`${this.origin}/${path}`, {
+				return await fetch(`${this.apiOrigin}/${path}`, {
 					method,
 					headers,
 				});
 			}
 			case 'POST': {
-				return await fetch(`${this.origin}/${path}`, {
+				return await fetch(`${this.apiOrigin}/${path}`, {
 					method,
 					headers,
 					body: JSON.stringify(body),
@@ -38,26 +41,34 @@ export class TraktClient {
 
 	/*  */
 
+	readonly appName: string;
+	readonly appVersion: string;
 	private readonly clientId: string;
 	private readonly clientSecret: string;
 	public readonly redirectUri: any;
 
 	constructor({
+		appName,
+		appVersion,
 		clientId,
 		clientSecret,
 		redirectUri,
 	}: {
+		appName: string;
+		appVersion: string;
 		clientId: string;
 		clientSecret: string;
 		redirectUri: string;
 	}) {
+		this.appName = appName;
+		this.appVersion = appVersion;
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.redirectUri = redirectUri;
 	}
 
 	getOauthUrl = (): string => {
-		const url = new URL('https://trakt.tv/oauth/authorize');
+		const url = new URL(`${this.origin}/oauth/authorize`);
 
 		url.searchParams.append('response_type', 'code');
 		url.searchParams.append('client_id', this.clientId);
