@@ -9,7 +9,7 @@
 	<img src={tvtempo} alt="TvTempo" class="size-24 rounded-md" />
 
 	<div class="*:w-68">
-		<Button href="/dashboard" variant="secondary" size="lg" class="cursor-pointer">
+		<Button href="/auth/login" variant="secondary" size="lg" class="cursor-pointer">
 			<img src={trakt} alt="Trakt" class="size-5" />
 
 			<span>Trakt</span>

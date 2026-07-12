@@ -249,6 +249,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.3.0
         version: 4.3.2(@voidzero-dev/vite-plus-core@0.2.2(jiti@2.7.0)(publint@0.3.21)(typescript@6.0.3))
+      '@tvtempo/trakt-api':
+        specifier: workspace:*
+        version: link:../../packages/trakt-api
       '@tvtempo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -270,6 +273,15 @@ importers:
       vite:
         specifier: npm:@voidzero-dev/vite-plus-core@0.2.2
         version: '@voidzero-dev/vite-plus-core@0.2.2(jiti@2.7.0)(publint@0.3.21)(typescript@6.0.3)'
+
+  packages/trakt-api:
+    devDependencies:
+      '@t1xx1/tsfix':
+        specifier: ^1.1.1
+        version: 1.1.1
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/ui:
     devDependencies:
