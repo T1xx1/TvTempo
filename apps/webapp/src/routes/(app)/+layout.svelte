@@ -3,17 +3,23 @@
 	import { Avatar, Button } from '@tvtempo/ui';
 	import type { Snippet } from 'svelte';
 
+	import { getUser } from './page.remote';
+
 	let {
 		children,
 	}: {
 		children: Snippet<[]>;
 	} = $props();
+
+	const user = await getUser();
 </script>
 
-{@render children()}
+<div class="p-0.5 pb-20">
+	{@render children()}
+</div>
 
 <nav
-	class="fixed bottom-0 z-50 bg-[#1c1c1c] border-t border-[#393939] py-1.5 w-full flex items-center justify-around"
+	class="fixed bottom-0 z-50 bg-blackish border-t border-greyish rounded-t-md py-1.5 w-full flex items-center justify-around"
 >
 	<Button href="/dashboard" variant="ghost" size="icon-lg" class="cursor-pointer">
 		<Tv class="size-6.5" />
@@ -25,7 +31,8 @@
 
 	<a href="/profile">
 		<Avatar.Root>
-			<Avatar.Fallback>T</Avatar.Fallback>
+			<Avatar.Image src={user.images.avatar.full} />
+			<Avatar.Fallback>{user.username[0]}</Avatar.Fallback>
 		</Avatar.Root>
 	</a>
 </nav>

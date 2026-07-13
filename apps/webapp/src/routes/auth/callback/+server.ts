@@ -29,7 +29,7 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 		throw redirect(302, '/auth?err=noCode');
 	}
 
-	const { access_token, refresh_token, expires_in } = await traktClient.exchangeCodeForTokens(code);
+	const { access_token, refresh_token, expires_in } = await traktClient.exchangeOauthCodeForTokens(code);
 
 	cookies.set('access_token', access_token, {
 		httpOnly: true,
