@@ -3,6 +3,10 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import { traktClient } from '~/data/trakt.server';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	if (event.url.pathname === '/auth') {
+		return resolve(event);
+	}
+
 	const refreshToken = event.cookies.get('refresh_token');
 
 	if (!refreshToken) {

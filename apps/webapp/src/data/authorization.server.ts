@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 
 export const auth = {
 	isUser: (locals: App.Locals): boolean => {
-		return locals.token !== null;
+		return !!locals.token;
 	},
 	user: (locals: App.Locals): never | string => {
 		if (locals.token === null) {
