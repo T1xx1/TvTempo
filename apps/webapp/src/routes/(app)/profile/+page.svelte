@@ -15,7 +15,7 @@
 	<div class="relative border-b border-greyish px-2 py-2.5 h-60 flex flex-col justify-between">
 		<div
 			style={`background-image: url(${url})`}
-			class="-z-10 absolute inset-0 bg-no-repeat bg-contain bg-center brightness-50"
+			class="-z-10 absolute inset-0 bg-no-repeat bg-contain bg-center brightness-70"
 		></div>
 
 		<div class="mt-auto flex items-end justify-between">
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="text-sm flex gap-4 items-center">
-				<div class="flex flex-col items-center">
+				<a href="/profile/followers" class="flex flex-col items-center">
 					<span>Followers</span>
 
 					<svelte:boundary>
@@ -39,9 +39,9 @@
 
 						{(await getFollowers()).length}
 					</svelte:boundary>
-				</div>
+				</a>
 
-				<div class="flex flex-col items-center">
+				<a href="/profile/following" class="flex flex-col items-center">
 					<span>Following</span>
 
 					<svelte:boundary>
@@ -51,7 +51,7 @@
 
 						{(await getFollowing()).length}
 					</svelte:boundary>
-				</div>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -140,8 +140,6 @@
 							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
 						{/each}
 					</div>
-
-					<pre>{JSON.stringify(favouriteMovies, null, 2)}</pre>
 				</svelte:boundary>
 			</div>
 		</div>
