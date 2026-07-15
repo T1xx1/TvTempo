@@ -36,6 +36,7 @@ export type UserImages = User & {
 		};
 	};
 };
+export type UserFull = UserImages & {};
 
 export type Show = {
 	title: string;
@@ -92,12 +93,12 @@ export class TraktClient {
 		path,
 		method = 'GET',
 		token = null,
-		body,
+		body = {},
 	}: {
 		path: string;
 		method?: 'GET' | 'POST';
 		token?: null | string;
-		body?: object;
+		body?: Record<string, string>;
 	}) => {
 		const headers = {
 			'Content-Type': 'application/json',
@@ -159,8 +160,7 @@ export class TraktClient {
 		this.redirectUri = redirectUri;
 	}
 
-	/*  */
-
+	/* auth */
 	getOauthUrl = () => {
 		const state = crypto.randomUUID();
 		const url = new URL(`${this.origin}/oauth/authorize`);
@@ -193,7 +193,7 @@ export class TraktClient {
 	// getdeviceCode = () => {};
 	// exchangeDeviceCodeForTokens = (code: string) => {};
 
-	refreshAccessToken = async (refreshToken: string) => {
+	refreshAccessToken = async (refreshToken: Token) => {
 		return (await this.fetch({
 			path: 'oauth/token',
 			method: 'POST',
@@ -207,31 +207,35 @@ export class TraktClient {
 		})) as Tokens;
 	};
 
-	/*  */
+	// revokeAccessToken = async (token: string) => {};
 
-	getUser = async ({ token, userId = 'me' }: { token: string; userId?: UserId }) => {
+	/* users */
+
+	getUser = async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
 		return (await this.fetch({
 			path: `users/${userId}?extended=images`,
 			token,
 		})) as UserImages;
 	};
 
-	getUserFollowers = async ({ token, userId = 'me' }: { token: string; userId?: UserId }) => {
+	getUserFollowers = async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
 		return (await this.fetch({
-			path: `users/${userId}/followers`,
+			path: `users/${userId}/followers?extended=images`,
 			token,
 		})) as {
 			friends_at: string;
-			user: User;
+			total_count: number;
+			user: UserImages;
 		}[];
 	};
-	getUserFollowing = async ({ token, userId = 'me' }: { token: string; userId?: UserId }) => {
+	getUserFollowing = async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
 		return (await this.fetch({
-			path: `users/${userId}/following`,
+			path: `users/${userId}/following?extened=images`,
 			token,
 		})) as {
 			friends_at: string;
-			user: User;
+			total_count: number;
+			user: UserImages;
 		}[];
 	};
 
@@ -241,17 +245,15 @@ export class TraktClient {
 		type,
 		sortBy = '',
 		sortHow = 'asc',
-		extended = 'images',
 	}: {
-		token: string;
+		token: Token;
 		userId?: UserId;
 		type: 'movie' | 'show' | 'movie,show';
 		sortBy?: '' | 'title';
 		sortHow?: 'asc' | 'desc';
-		extended?: 'images';
 	}) => {
 		return (await this.fetch({
-			path: `users/${userId}/watchlist/${type}/${sortBy}/${sortHow}?extended=${extended}`,
+			path: `users/${userId}/watchlist/${type}/${sortBy}/${sortHow}?extended=images`,
 			token,
 		})) as (
 			| ({
@@ -270,7 +272,7 @@ export class TraktClient {
 		)[];
 	};
 
-	getWatchedMedia = async ({ token, userId }: { token: string; userId?: UserId }) => {};
+	// getWatchedMedia = async ({ token, userId }: { token: string; userId?: UserId }) => {};
 
 	getFavouriteMedia = async ({
 		token,
@@ -279,7 +281,7 @@ export class TraktClient {
 		sortBy = '',
 		limit = 5,
 	}: {
-		token: string;
+		token: Token;
 		userId?: UserId;
 		type: 'movies' | 'shows';
 		sortBy?: '' | 'listed_at';
