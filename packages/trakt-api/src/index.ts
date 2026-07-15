@@ -90,12 +90,12 @@ export class TraktClient {
 	readonly apiVersion = '2';
 
 	fetch = async ({
-		path,
+		url,
 		method = 'GET',
 		token = null,
 		body = {},
 	}: {
-		path: string;
+		url: string;
 		method?: 'GET' | 'POST';
 		token?: null | string;
 		body?: Record<string, string>;
@@ -110,7 +110,7 @@ export class TraktClient {
 
 		switch (method) {
 			case 'GET': {
-				const res = await fetch(`${this.apiOrigin}/${path}`, {
+				const res = await fetch(url, {
 					method,
 					headers,
 				});
@@ -118,7 +118,7 @@ export class TraktClient {
 				return await res.json();
 			}
 			case 'POST': {
-				const res = await fetch(`${this.apiOrigin}/${path}`, {
+				const res = await fetch(url, {
 					method,
 					headers,
 					body: JSON.stringify(body),
@@ -163,22 +163,19 @@ export class TraktClient {
 	/* auth */
 	getOauthUrl = () => {
 		const state = crypto.randomUUID();
-		const url = new URL(`${this.origin}/oauth/authorize`);
-
-		url.searchParams.append('response_type', 'code');
-		url.searchParams.append('client_id', this.clientId);
-		url.searchParams.append('redirect_uri', this.redirectUri);
-		url.searchParams.append('state', state);
+		const url = `${this.origin}/oauth/authorize?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirectUri}&state=${state}`;
 
 		return {
-			url: url.toString(),
+			url: url,
 			state,
 		};
 	};
 
 	exchangeOauthCodeForTokens = async (code: string) => {
+		const url = new URL(`${this.apiOrigin}/oauth/token`);
+
 		return (await this.fetch({
-			path: 'oauth/token',
+			url: url.toString(),
 			method: 'POST',
 			body: {
 				client_id: this.clientId,
@@ -194,8 +191,10 @@ export class TraktClient {
 	// exchangeDeviceCodeForTokens = (code: string) => {};
 
 	refreshAccessToken = async (refreshToken: Token) => {
+		const url = new URL(`${this.apiOrigin}/oauth/token`);
+
 		return (await this.fetch({
-			path: 'oauth/token',
+			url: url.toString(),
 			method: 'POST',
 			body: {
 				client_id: this.clientId,
@@ -211,16 +210,44 @@ export class TraktClient {
 
 	/* users */
 
-	getUser = async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
+	getUser = async ({
+		token,
+		userId = 'me',
+		extended = 'images',
+	}: {
+		token: Token;
+		userId?: UserId;
+		extended?: 'images';
+	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}`);
+
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
 		return (await this.fetch({
-			path: `users/${userId}?extended=images`,
+			url: url.toString(),
 			token,
 		})) as UserImages;
 	};
 
-	getUserFollowers = async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
+	getUserFollowers = async ({
+		token,
+		userId = 'me',
+		extended = 'images',
+	}: {
+		token: Token;
+		userId?: UserId;
+		extended?: 'images';
+	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/followers`);
+
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
 		return (await this.fetch({
-			path: `users/${userId}/followers?extended=images`,
+			url: url.toString(),
 			token,
 		})) as {
 			friends_at: string;
@@ -228,9 +255,23 @@ export class TraktClient {
 			user: UserImages;
 		}[];
 	};
-	getUserFollowing = async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
+	getUserFollowing = async ({
+		token,
+		userId = 'me',
+		extended = 'images',
+	}: {
+		token: Token;
+		userId?: UserId;
+		extended?: 'images';
+	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/following`);
+
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
 		return (await this.fetch({
-			path: `users/${userId}/following?extened=images`,
+			url: url.toString(),
 			token,
 		})) as {
 			friends_at: string;
@@ -245,15 +286,23 @@ export class TraktClient {
 		type,
 		sortBy = '',
 		sortHow = 'asc',
+		extended = 'images',
 	}: {
 		token: Token;
 		userId?: UserId;
 		type: 'movie' | 'show' | 'movie,show';
 		sortBy?: '' | 'title';
 		sortHow?: 'asc' | 'desc';
+		extended?: 'images';
 	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/watchlist/${type}/${sortBy}/${sortHow}`);
+
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
 		return (await this.fetch({
-			path: `users/${userId}/watchlist/${type}/${sortBy}/${sortHow}?extended=images`,
+			url: url.toString(),
 			token,
 		})) as (
 			| ({
@@ -272,39 +321,125 @@ export class TraktClient {
 		)[];
 	};
 
-	// getWatchedMedia = async ({ token, userId }: { token: string; userId?: UserId }) => {};
-
-	getFavouriteMedia = async ({
+	getWatchedShows = async ({
 		token,
 		userId = 'me',
-		type,
-		sortBy = '',
-		limit = 5,
+		limit,
+		extended = 'full',
+	}: {
+		token: string;
+		userId?: UserId;
+		limit?: number;
+		extended?: 'full';
+	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/watched/shows`);
+
+		if (limit) {
+			url.searchParams.append('limit', limit.toString());
+		}
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
+		return (await this.fetch({
+			url: url.toString(),
+			token,
+		})) as {
+			show: ShowFull;
+		};
+	};
+	getWatchedMovies = async ({
+		token,
+		userId = 'me',
+		limit,
+		extended = 'full',
+	}: {
+		token: string;
+		userId?: UserId;
+		limit?: number;
+		extended?: 'full';
+	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/watched/movies`);
+
+		if (limit) {
+			url.searchParams.append('limit', limit.toString());
+		}
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
+		return (await this.fetch({
+			url: url.toString(),
+			token,
+		})) as {
+			movie: MovieFull;
+		};
+	};
+
+	getFavouriteShows = async ({
+		token,
+		userId = 'me',
+		limit,
+		extended = 'full',
 	}: {
 		token: Token;
 		userId?: UserId;
-		type: 'movies' | 'shows';
-		sortBy?: '' | 'listed_at';
 		limit?: number;
+		extended?: 'full';
 	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/shows`);
+
+		if (limit) {
+			url.searchParams.append('limit', limit.toString());
+		}
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
 		return (await this.fetch({
-			path: `users/${userId}/favorites/${type}/${sortBy}?limit=${limit}&extended=full`,
+			url: url.toString(),
 			token,
-		})) as (
-			| ({
-					id: number;
-					rank: number;
-					listed_at: Date;
-					notes: null | string;
-					my_rating: null | number;
-			  } & {
-					type: 'show';
-					show: ShowFull;
-			  })
-			| {
-					type: 'movie';
-					movie: MovieFull;
-			  }
-		)[];
+		})) as {
+			id: number;
+			rank: number;
+			listed_at: Date;
+			notes: null | string;
+			my_rating: null | number;
+			type: 'show';
+			show: ShowFull;
+		}[];
+	};
+	getFavouriteMovies = async ({
+		token,
+		userId = 'me',
+		limit,
+		extended = 'full',
+	}: {
+		token: Token;
+		userId?: UserId;
+		limit?: number;
+		extended?: 'full';
+	}) => {
+		const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/movies`);
+
+		if (limit) {
+			url.searchParams.append('limit', limit.toString());
+		}
+		if (extended) {
+			url.searchParams.append('extended', extended);
+		}
+
+		return (await this.fetch({
+			url: url.toString(),
+			token,
+		})) as {
+			id: number;
+			rank: number;
+			listed_at: Date;
+			notes: null | string;
+			my_rating: null | number;
+			type: 'movie';
+			movie: MovieFull;
+		}[];
 	};
 }

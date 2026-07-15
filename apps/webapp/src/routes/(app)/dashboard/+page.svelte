@@ -63,6 +63,3 @@
 		</div>
 	</Tabs.Content>
 </Tabs.Root>
-
-
-<pre>{JSON.stringify(watching, null, 2)}</pre>

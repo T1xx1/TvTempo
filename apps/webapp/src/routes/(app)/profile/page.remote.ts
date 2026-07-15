@@ -25,23 +25,40 @@ export const getFollowing = query(async () => {
 	});
 });
 
+export const getWatchedShows = query(async () => {
+	const { locals } = getRequestEvent();
+
+	return await traktClient.getWatchedShows({
+		token: locals.token!,
+		userId: 'me',
+		limit: 5,
+	});
+});
 export const getFavouriteShows = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getFavouriteMedia({
+	return await traktClient.getFavouriteShows({
 		token: locals.token!,
 		userId: 'me',
-		type: 'shows',
-		sortBy: 'listed_at',
+		limit: 5,
+	});
+});
+
+export const getWatchedMovies = query(async () => {
+	const { locals } = getRequestEvent();
+
+	return await traktClient.getWatchedMovies({
+		token: locals.token!,
+		userId: 'me',
+		limit: 5,
 	});
 });
 export const getFavouriteMovies = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getFavouriteMedia({
+	return await traktClient.getFavouriteMovies({
 		token: locals.token!,
 		userId: 'me',
-		type: 'movies',
-		sortBy: 'listed_at',
+		limit: 5,
 	});
 });

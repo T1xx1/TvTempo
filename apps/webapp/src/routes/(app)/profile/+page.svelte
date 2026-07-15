@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { ChartLine, ChevronRight, Clapperboard, Tv } from '@lucide/svelte';
-	import { Avatar, ScrollArea } from '@tvtempo/ui';
+	import { Avatar, Empty } from '@tvtempo/ui';
 
 	import Media from '~/components/Media.svelte';
 
-	import { getFavouriteMovies, getFavouriteShows, getFollowers, getFollowing, getUser } from './page.remote';
+	import { getFavouriteMovies, getFavouriteShows, getFollowers, getFollowing, getUser, getWatchedMovies, getWatchedShows } from './page.remote';
 
 	const user = await getUser();
 	const url = 'https://media.trakt.tv/images/shows/000/039/892/posters/medium/e81b164378.jpg.webp';
@@ -82,7 +82,27 @@
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div></div>
+			<div>
+				<svelte:boundary>
+					{const shows = (await getWatchedShows())}
+
+					<!-- <div class="flex gap-1">
+						{#each shows as show}
+							<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
+						{:else}
+							<Empty.Root>
+								<Empty.Header>
+									<Empty.Media variant="icon">
+										<Tv />
+									</Empty.Media>
+
+									<Empty.Title>No shows</Empty.Title>
+								</Empty.Header>
+							</Empty.Root>
+						{/each}
+					</div> -->
+				</svelte:boundary>
+			</div>
 		</div>
 
 		<div class="space-y-2">
@@ -97,11 +117,21 @@
 
 			<div>
 				<svelte:boundary>
-					{const favouriteShows = await getFavouriteShows()}
+					{const favouriteShows = (await getFavouriteShows())}
 
 					<div class="flex gap-1">
 						{#each favouriteShows as show}
 							<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
+						{:else}
+							<Empty.Root>
+								<Empty.Header>
+									<Empty.Media variant="icon">
+										<Tv />
+									</Empty.Media>
+
+									<Empty.Title>No favourite shows</Empty.Title>
+								</Empty.Header>
+							</Empty.Root>
 						{/each}
 					</div>
 				</svelte:boundary>
@@ -118,7 +148,27 @@
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div></div>
+			<div>
+				<svelte:boundary>
+					{const movies = (await getWatchedMovies())}
+
+					<div class="flex gap-1">
+						{#each movies as movie}
+							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
+						{:else}
+							<Empty.Root>
+								<Empty.Header>
+									<Empty.Media variant="icon">
+										<Clapperboard />
+									</Empty.Media>
+
+									<Empty.Title>No movies</Empty.Title>
+								</Empty.Header>
+							</Empty.Root>
+						{/each}
+					</div>
+				</svelte:boundary>
+			</div>
 		</div>
 
 		<div class="space-y-2">
@@ -133,11 +183,21 @@
 
 			<div>
 				<svelte:boundary>
-					{const favouriteMovies = await getFavouriteMovies()}
+					{const favouriteMovies = (await getFavouriteMovies())}
 
 					<div class="flex gap-1">
 						{#each favouriteMovies as movie}
 							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
+						{:else}
+							<Empty.Root>
+								<Empty.Header>
+									<Empty.Media variant="icon">
+										<Clapperboard />
+									</Empty.Media>
+
+									<Empty.Title>No favourite movies</Empty.Title>
+								</Empty.Header>
+							</Empty.Root>
 						{/each}
 					</div>
 				</svelte:boundary>
