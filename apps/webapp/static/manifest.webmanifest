@@ -1,0 +1,21 @@
+{
+	"$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/web-manifest.json",
+	"id": "tvtempo",
+	"name": "TvTempo",
+	"short_name": "TvTempo",
+	"description": "",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"orientation": "portrait",
+	"background_color": "#0a0a0a",
+	"theme_color": "#008235",
+	"lang": "en",
+	"icons": [
+		{
+			"src": "/icon.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		}
+	]
+}
