@@ -11,7 +11,7 @@
 </script>
 
 <Tabs.Root value="shows">
-	<Tabs.List class="fixed top-0 z-50 w-full">
+	<Tabs.List class="fixed top-0 z-50 rounded-t-none w-full">
 		<Tabs.Trigger value="shows" class="cursor-pointer">
 			<Tv />
 			<span>Shows</span>
@@ -23,7 +23,7 @@
 		</Tabs.Trigger>
 	</Tabs.List>
 
-	<Tabs.Content value="shows" class="pt-10 space-y-4">
+	<Tabs.Content value="shows" class="pt-10 px-1 space-y-4">
 		<div class="flex flex-col gap-y-1.5 items-center justify-center">
 			<Badge variant="outline" class="bg-input px-2">Watchlist</Badge>
 
@@ -43,7 +43,7 @@
 		</div>
 	</Tabs.Content>
 
-	<Tabs.Content value="movies" class="pt-10 space-y-4">
+	<Tabs.Content value="movies" class="pt-10 px-1 space-y-4">
 		<div class="flex flex-col gap-y-1.5 items-center justify-center">
 			<Badge variant="outline" class="bg-input px-2">Watchlist</Badge>
 

@@ -14,7 +14,7 @@
 	const user = await getUser();
 </script>
 
-<div class="p-0.5 pb-20">
+<div class="pb-20">
 	{@render children()}
 </div>
 
