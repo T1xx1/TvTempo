@@ -346,7 +346,7 @@ export class TraktClient {
 			token,
 		})) as {
 			show: ShowFull;
-		};
+		}[];
 	};
 	getWatchedMovies = async ({
 		token,
@@ -373,7 +373,7 @@ export class TraktClient {
 			token,
 		})) as {
 			movie: MovieFull;
-		};
+		}[];
 	};
 
 	getFavouriteShows = async ({

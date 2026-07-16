@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ChartLine, ChevronRight, Clapperboard, Tv } from '@lucide/svelte';
-	import { Avatar, Empty } from '@tvtempo/ui';
+	import { Avatar, Empty, Skeleton } from '@tvtempo/ui';
 
 	import Media from '~/components/Media.svelte';
 
@@ -56,7 +56,7 @@
 		</div>
 	</div>
 
-	<div class="px-1 py-1.5 space-y-5">
+	<div class="p-1 space-y-4">
 		<!-- stats -->
 		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
@@ -71,9 +71,8 @@
 			<div></div>
 		</div>
 
-		<!-- media -->
 		<div class="space-y-1.5">
-			<a href="/profile/stats" class="group flex items-center justify-between">
+			<a href="/profile/shows" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
 					<Tv class="size-4.5" />
 					<span>Shows</span>
@@ -83,10 +82,12 @@
 			</a>
 
 			<div>
-				<svelte:boundary>
+				<div>...Series</div>
+
+				<!-- <svelte:boundary>
 					{const shows = (await getWatchedShows())}
 
-					<!-- <div class="flex gap-1">
+					<div class="flex gap-1">
 						{#each shows as show}
 							<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
 						{:else}
@@ -100,15 +101,15 @@
 								</Empty.Header>
 							</Empty.Root>
 						{/each}
-					</div> -->
-				</svelte:boundary>
+					</div>
+				</svelte:boundary> -->
 			</div>
 		</div>
 
 		<div class="space-y-1.5">
-			<a href="/profile/stats" class="group flex items-center justify-between">
-				<h2 class="text-lg text-primary flex gap-1 items-center">
-					<Tv class="size-4.5" />
+			<a href="/profile/shows" class="group flex items-center justify-between">
+				<h2 class="text-lg flex gap-1 items-center">
+					<Tv class="size-4.5 text-primary" />
 					<span>Favourite shows</span>
 				</h2>
 
@@ -139,7 +140,7 @@
 		</div>
 
 		<div class="space-y-1.5">
-			<a href="/profile/stats" class="group flex items-center justify-between">
+			<a href="/profile/movies" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
 					<Clapperboard class="size-4.5" />
 					<span>Movies</span>
@@ -172,9 +173,9 @@
 		</div>
 
 		<div class="space-y-1.5">
-			<a href="/profile/stats" class="group flex items-center justify-between">
-				<h2 class="text-lg text-primary flex gap-1 items-center">
-					<Clapperboard class="size-4.5" />
+			<a href="/profile/movies" class="group flex items-center justify-between">
+				<h2 class="text-lg flex gap-1 items-center">
+					<Clapperboard class="size-4.5 text-primary" />
 					<span>Favourite movies</span>
 				</h2>
 
