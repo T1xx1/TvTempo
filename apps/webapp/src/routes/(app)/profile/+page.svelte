@@ -56,12 +56,12 @@
 		</div>
 	</div>
 
-	<div class="px-1 py-1.5 space-y-4">
+	<div class="px-1 py-1.5 space-y-5">
 		<!-- stats -->
-		<div class="space-y-2">
+		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<ChartLine />
+					<ChartLine class="size-4.5" />
 					<span>Statistics</span>
 				</h2>
 
@@ -72,10 +72,10 @@
 		</div>
 
 		<!-- media -->
-		<div class="space-y-2">
+		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Tv />
+					<Tv class="size-4.5" />
 					<span>Shows</span>
 				</h2>
 
@@ -105,10 +105,10 @@
 			</div>
 		</div>
 
-		<div class="space-y-2">
+		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
 				<h2 class="text-lg text-primary flex gap-1 items-center">
-					<Tv />
+					<Tv class="size-4.5" />
 					<span>Favourite shows</span>
 				</h2>
 
@@ -138,10 +138,10 @@
 			</div>
 		</div>
 
-		<div class="space-y-2">
+		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Clapperboard />
+					<Clapperboard class="size-4.5" />
 					<span>Movies</span>
 				</h2>
 
@@ -171,10 +171,10 @@
 			</div>
 		</div>
 
-		<div class="space-y-2">
+		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
 				<h2 class="text-lg text-primary flex gap-1 items-center">
-					<Clapperboard />
+					<Clapperboard class="size-4.5" />
 					<span>Favourite movies</span>
 				</h2>
 
