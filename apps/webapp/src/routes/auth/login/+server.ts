@@ -5,7 +5,7 @@ import { traktClient } from '~/data/trakt.server';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = ({ cookies }) => {
-	const { url, state } = traktClient.getOauthUrl();
+	const { url, state } = traktClient.oauth.getUrl();
 
 	cookies.set('state', state, {
 		path: '/',

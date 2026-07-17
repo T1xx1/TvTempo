@@ -5,83 +5,53 @@ import { traktClient } from '~/data/trakt.server';
 export const getUser = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getUser({
+	return await traktClient.users.getUserFull({
 		token: locals.token!,
 	});
 });
 
-export const getFollowers = query(async () => {
+export const getStats = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getUserFollowers({
+	return await traktClient.users.getStats({
 		token: locals.token!,
-	});
-});
-export const getFollowing = query(async () => {
-	const { locals } = getRequestEvent();
-
-	return await traktClient.getUserFollowing({
-		token: locals.token!,
-	});
-});
-
-export const getWatchedShowsLength = query(async () => {
-	const { locals } = getRequestEvent();
-
-	return await traktClient.getWatchedShows({
-		token: locals.token!,
-		userId: 'me',
-		extended: 'min',
-	});
-});
-export const getWatchedMoviesLength = query(async () => {
-	const { locals } = getRequestEvent();
-
-	return await traktClient.getWatchedMovies({
-		token: locals.token!,
-		userId: 'me',
-		extended: 'min',
 	});
 });
 
 export const getWatchedShows = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getWatchedShows({
+	return await traktClient.users.getWatchedShowsFull({
 		token: locals.token!,
 		userId: 'me',
-		limit: 5,
-		extended: 'full',
+		limit: 6,
 	});
 });
 export const getFavouriteShows = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getFavouriteShows({
+	return await traktClient.users.getFavouriteShowsFull({
 		token: locals.token!,
 		userId: 'me',
-		limit: 5,
-		extended: 'full',
+		limit: 6,
 	});
 });
 
 export const getWatchedMovies = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getWatchedMovies({
+	return await traktClient.users.getWatchedMoviesFull({
 		token: locals.token!,
 		userId: 'me',
-		limit: 5,
-		extended: 'full',
+		limit: 6,
 	});
 });
 export const getFavouriteMovies = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getFavouriteMovies({
+	return await traktClient.users.getFavouriteMoviesFull({
 		token: locals.token!,
 		userId: 'me',
-		limit: 5,
-		extended: 'full',
+		limit: 6,
 	});
 });

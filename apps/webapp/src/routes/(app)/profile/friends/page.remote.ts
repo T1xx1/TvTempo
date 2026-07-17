@@ -1,12 +1,10 @@
 import { getRequestEvent, query } from '$app/server';
-
 import { traktClient } from '~/data/trakt.server';
 
-export const getWatchedMovies = query(async () => {
+export const getFriends = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.users.getWatchedMoviesFull({
+	return traktClient.users.getFriends({
 		token: locals.token!,
-		userId: 'me',
 	});
 });

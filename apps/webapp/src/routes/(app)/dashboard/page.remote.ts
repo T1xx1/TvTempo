@@ -7,13 +7,11 @@ export const getWatching = query(async () => {
 
 	return [];
 });
-
 export const getWatchlist = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getWatchlist({
+	return await traktClient.users.getWatchlistFull({
 		token: locals.token!,
-		type: 'movie,show',
-		sortBy: 'title',
+		userId: 'me',
 	});
 });

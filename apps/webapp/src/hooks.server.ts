@@ -24,7 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (!accessToken && refreshToken) {
 		const { access_token, refresh_token, expires_in } =
-			await traktClient.refreshAccessToken(refreshToken);
+			await traktClient.oauth.refreshAccessToken(refreshToken);
 
 		event.cookies.set('access_token', access_token, {
 			httpOnly: true,

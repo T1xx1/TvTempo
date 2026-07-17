@@ -5,7 +5,7 @@ import { traktClient } from '~/data/trakt.server';
 export const getUser = query(async () => {
 	const { locals } = getRequestEvent();
 
-	return await traktClient.getUser({
+	return await traktClient.users.getUserFull({
 		token: locals.token!,
 	});
 });
