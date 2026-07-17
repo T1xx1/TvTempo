@@ -16,6 +16,8 @@ export type Tokens = {
 export type UserId = 'me' | number;
 export type MediaType = 'movie' | 'show' | 'season' | 'episode' | 'person' | 'user';
 
+export type Extended = null | 'min' | 'full';
+
 export type User = {
 	username: string;
 	private: boolean;
@@ -110,21 +112,17 @@ export class TraktClient {
 
 		switch (method) {
 			case 'GET': {
-				const res = await fetch(url, {
+				return await fetch(url, {
 					method,
 					headers,
 				});
-
-				return await res.json();
 			}
 			case 'POST': {
-				const res = await fetch(url, {
+				return await fetch(url, {
 					method,
 					headers,
 					body: JSON.stringify(body),
 				});
-
-				return await res.json();
 			}
 			default: {
 				assert<never>(method);
@@ -174,7 +172,7 @@ export class TraktClient {
 	exchangeOauthCodeForTokens = async (code: string) => {
 		const url = new URL(`${this.apiOrigin}/oauth/token`);
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			method: 'POST',
 			body: {
@@ -184,7 +182,9 @@ export class TraktClient {
 				grant_type: 'authorization_code',
 				code,
 			},
-		})) as Tokens;
+		});
+
+		return (await res.json()) as Tokens;
 	};
 
 	// getdeviceCode = () => {};
@@ -193,7 +193,7 @@ export class TraktClient {
 	refreshAccessToken = async (refreshToken: Token) => {
 		const url = new URL(`${this.apiOrigin}/oauth/token`);
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			method: 'POST',
 			body: {
@@ -203,7 +203,9 @@ export class TraktClient {
 				grant_type: 'refresh_token',
 				refresh_token: refreshToken,
 			},
-		})) as Tokens;
+		});
+
+		return (await res.json()) as Tokens;
 	};
 
 	// revokeAccessToken = async (token: string) => {};
@@ -225,10 +227,12 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as UserImages;
+		});
+
+		return (await res.json()) as UserImages;
 	};
 
 	getUserFollowers = async ({
@@ -246,10 +250,12 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as {
+		});
+
+		return (await res.json()) as {
 			friends_at: string;
 			total_count: number;
 			user: UserImages;
@@ -270,10 +276,12 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as {
+		});
+
+		return (await res.json()) as {
 			friends_at: string;
 			total_count: number;
 			user: UserImages;
@@ -301,10 +309,12 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as (
+		});
+
+		return (await res.json()) as (
 			| ({
 					rank: number;
 					id: number;
@@ -325,12 +335,12 @@ export class TraktClient {
 		token,
 		userId = 'me',
 		limit,
-		extended = 'full',
+		extended = null,
 	}: {
 		token: string;
 		userId?: UserId;
 		limit?: number;
-		extended?: 'full';
+		extended?: Extended;
 	}) => {
 		const url = new URL(`${this.apiOrigin}/users/${userId}/watched/shows`);
 
@@ -341,23 +351,26 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as {
+		});
+
+		return (await res.json()) as {
 			show: ShowFull;
 		}[];
 	};
+
 	getWatchedMovies = async ({
 		token,
 		userId = 'me',
 		limit,
-		extended = 'full',
+		extended = null,
 	}: {
 		token: string;
 		userId?: UserId;
 		limit?: number;
-		extended?: 'full';
+		extended?: Extended;
 	}) => {
 		const url = new URL(`${this.apiOrigin}/users/${userId}/watched/movies`);
 
@@ -368,24 +381,61 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as {
+		});
+
+		const movies = (await res.json()) as {
 			movie: MovieFull;
 		}[];
+
+		console.log(movies);
+
+		const pageCounts = parseInt(res.headers.get('x-pagination-page-count') ?? '0');
+
+		for (let i = 1; i < pageCounts; i++) {
+			url.searchParams.set('page', i.toString());
+
+			movies.push(
+				...((await (
+					await this.fetch({
+						url: url.toString(),
+						token,
+					})
+				).json()) as {
+					movie: MovieFull;
+				}[]),
+			);
+		}
+
+		console.log(movies.length);
+
+		const uniqueIds = [
+			...new Set(
+				movies.map((movie) => {
+					return movie.movie.ids.trakt;
+				}),
+			),
+		];
+
+		return uniqueIds.map((id) => {
+			return movies.find((movie) => {
+				return movie.movie.ids.trakt === id;
+			});
+		});
 	};
 
 	getFavouriteShows = async ({
 		token,
 		userId = 'me',
 		limit,
-		extended = 'full',
+		extended = null,
 	}: {
 		token: Token;
 		userId?: UserId;
 		limit?: number;
-		extended?: 'full';
+		extended?: Extended;
 	}) => {
 		const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/shows`);
 
@@ -396,10 +446,12 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as {
+		});
+
+		return (await res.json()) as {
 			id: number;
 			rank: number;
 			listed_at: Date;
@@ -413,12 +465,12 @@ export class TraktClient {
 		token,
 		userId = 'me',
 		limit,
-		extended = 'full',
+		extended = null,
 	}: {
 		token: Token;
 		userId?: UserId;
 		limit?: number;
-		extended?: 'full';
+		extended?: Extended;
 	}) => {
 		const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/movies`);
 
@@ -429,10 +481,12 @@ export class TraktClient {
 			url.searchParams.append('extended', extended);
 		}
 
-		return (await this.fetch({
+		const res = await this.fetch({
 			url: url.toString(),
 			token,
-		})) as {
+		});
+
+		return (await res.json()) as {
 			id: number;
 			rank: number;
 			listed_at: Date;

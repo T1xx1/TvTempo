@@ -2,21 +2,17 @@
 	import { ArrowLeft, UserRound } from '@lucide/svelte';
 	import { Avatar, Button, Empty } from '@tvtempo/ui';
 
+	import Topbar from '~/components/Topbar.svelte';
+
 	import { getFollowers } from '../page.remote';
 
 	const followers = await getFollowers();
 </script>
 
 <div>
-	<div
-		class="fixed top-0 z-50 bg-blackish border-b border-greyish rounded-b-md py-1 w-full flex gap-1 items-center"
-	>
-		<Button href="/profile" variant="ghost">
-			<ArrowLeft />
-		</Button>
-
-		<span>{followers.length} followers</span>
-	</div>
+	<Topbar>
+		{followers.length} followers
+	</Topbar>
 
 	<div class="pt-13 px-1.5 space-y-1">
 		{#each followers as follower (follower.user.ids.trakt)}

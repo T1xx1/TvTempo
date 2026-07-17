@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { ChartLine, ChevronRight, Clapperboard, Tv } from '@lucide/svelte';
-	import { Avatar, Empty, Skeleton } from '@tvtempo/ui';
+	import { Avatar, Empty } from '@tvtempo/ui';
 
 	import Media from '~/components/Media.svelte';
 
-	import { getFavouriteMovies, getFavouriteShows, getFollowers, getFollowing, getUser, getWatchedMovies, getWatchedShows } from './page.remote';
+	import { getFavouriteMovies, getFavouriteShows, getFollowers, getFollowing, getUser, getWatchedMovies, getWatchedMoviesLength, getWatchedShows, getWatchedShowsLength } from './page.remote';
 
 	const user = await getUser();
 	const url = 'https://media.trakt.tv/images/shows/000/039/892/posters/medium/e81b164378.jpg.webp';
@@ -61,148 +61,146 @@
 		<div class="space-y-1.5">
 			<a href="/profile/stats" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<ChartLine class="size-4.5" />
+					<ChartLine class="size-5" />
 					<span>Statistics</span>
 				</h2>
 
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div></div>
+			<svelte:boundary>
+				{const shows = await getWatchedShowsLength()}
+				{const movies = await getWatchedMoviesLength()}
+
+				<div>{shows} shows</div>
+				<div>{movies} movies</div>
+			</svelte:boundary>
 		</div>
 
 		<div class="space-y-1.5">
 			<a href="/profile/shows" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Tv class="size-4.5" />
+					<Tv class="size-5" />
 					<span>Shows</span>
 				</h2>
 
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div>
-				<div>...Series</div>
+			<div>...Series</div>
 
-				<!-- <svelte:boundary>
-					{const shows = (await getWatchedShows())}
+			<!-- <svelte:boundary>
+				{const shows = (await getWatchedShows())}
 
-					<div class="flex gap-1">
-						{#each shows as show}
-							<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
-						{:else}
-							<Empty.Root>
-								<Empty.Header>
-									<Empty.Media variant="icon">
-										<Tv />
-									</Empty.Media>
+				<div class="flex gap-1">
+					{#each shows as show}
+						<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
+					{:else}
+						<Empty.Root>
+							<Empty.Header>
+								<Empty.Media variant="icon">
+									<Tv />
+								</Empty.Media>
 
-									<Empty.Title>No shows</Empty.Title>
-								</Empty.Header>
-							</Empty.Root>
-						{/each}
-					</div>
-				</svelte:boundary> -->
-			</div>
+								<Empty.Title>No shows</Empty.Title>
+							</Empty.Header>
+						</Empty.Root>
+					{/each}
+				</div
+			</svelte:boundary> -->
 		</div>
 
 		<div class="space-y-1.5">
 			<a href="/profile/shows" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Tv class="size-4.5 text-primary" />
+					<Tv class="size-5 text-primary" />
 					<span>Favourite shows</span>
 				</h2>
 
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div>
-				<svelte:boundary>
-					{const favouriteShows = (await getFavouriteShows())}
+			<svelte:boundary>
+				{const favouriteShows = (await getFavouriteShows())}
 
-					<div class="flex gap-1">
-						{#each favouriteShows as show}
-							<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
-						{:else}
-							<Empty.Root>
-								<Empty.Header>
-									<Empty.Media variant="icon">
-										<Tv />
-									</Empty.Media>
+				<div class="flex gap-1">
+					{#each favouriteShows as show}
+						<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />
+					{:else}
+						<Empty.Root>
+							<Empty.Header>
+								<Empty.Media variant="icon">
+									<Tv />
+								</Empty.Media>
 
-									<Empty.Title>No favourite shows</Empty.Title>
-								</Empty.Header>
-							</Empty.Root>
-						{/each}
-					</div>
-				</svelte:boundary>
-			</div>
+								<Empty.Title>No favourite shows</Empty.Title>
+							</Empty.Header>
+						</Empty.Root>
+					{/each}
+				</div>
+			</svelte:boundary>
 		</div>
 
 		<div class="space-y-1.5">
 			<a href="/profile/movies" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Clapperboard class="size-4.5" />
+					<Clapperboard class="size-5" />
 					<span>Movies</span>
 				</h2>
 
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div>
-				<svelte:boundary>
-					{const movies = (await getWatchedMovies())}
+			<svelte:boundary>
+				{const movies = (await getWatchedMovies())}
 
-					<div class="flex gap-1">
-						{#each movies as movie}
-							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
-						{:else}
-							<Empty.Root>
-								<Empty.Header>
-									<Empty.Media variant="icon">
-										<Clapperboard />
-									</Empty.Media>
+				<div class="flex gap-1">
+					{#each movies as movie}
+						<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
+					{:else}
+						<Empty.Root>
+							<Empty.Header>
+								<Empty.Media variant="icon">
+									<Clapperboard />
+								</Empty.Media>
 
-									<Empty.Title>No movies</Empty.Title>
-								</Empty.Header>
-							</Empty.Root>
-						{/each}
-					</div>
-				</svelte:boundary>
-			</div>
+								<Empty.Title>No movies</Empty.Title>
+							</Empty.Header>
+						</Empty.Root>
+					{/each}
+				</div>
+			</svelte:boundary>
 		</div>
 
 		<div class="space-y-1.5">
 			<a href="/profile/movies" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Clapperboard class="size-4.5 text-primary" />
+					<Clapperboard class="size-5 text-primary" />
 					<span>Favourite movies</span>
 				</h2>
 
 				<ChevronRight class="group-hover:translate-x-0.5" />
 			</a>
 
-			<div>
-				<svelte:boundary>
-					{const favouriteMovies = (await getFavouriteMovies())}
+			<svelte:boundary>
+				{const favouriteMovies = (await getFavouriteMovies())}
 
-					<div class="flex gap-1">
-						{#each favouriteMovies as movie}
-							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
-						{:else}
-							<Empty.Root>
-								<Empty.Header>
-									<Empty.Media variant="icon">
-										<Clapperboard />
-									</Empty.Media>
+				<div class="flex gap-1">
+					{#each favouriteMovies as movie}
+						<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
+					{:else}
+						<Empty.Root>
+							<Empty.Header>
+								<Empty.Media variant="icon">
+									<Clapperboard />
+								</Empty.Media>
 
-									<Empty.Title>No favourite movies</Empty.Title>
-								</Empty.Header>
-							</Empty.Root>
-						{/each}
-					</div>
-				</svelte:boundary>
-			</div>
+								<Empty.Title>No favourite movies</Empty.Title>
+							</Empty.Header>
+						</Empty.Root>
+					{/each}
+				</div>
+			</svelte:boundary>
 		</div>
 	</div>
 </div>

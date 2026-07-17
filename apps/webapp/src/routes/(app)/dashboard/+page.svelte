@@ -2,6 +2,7 @@
 	import { Bookmark, Clapperboard, Popcorn, Sparkles, Tv } from '@lucide/svelte';
 	import { Badge, Button, Tabs } from '@tvtempo/ui';
 
+	import Grid from '~/components/Grid.svelte';
 	import Media from '~/components/Media.svelte';
 
 	import { getWatching, getWatchlist } from './page.remote';
@@ -23,7 +24,7 @@
 		</Tabs.Trigger>
 	</Tabs.List>
 
-	<div class="pt-12 px-1">
+	<div class="pt-11 px-1">
 		<Tabs.Content value="shows" class="space-y-4">
 			<div class="flex flex-col gap-y-2 items-center justify-center">
 				<Badge variant="outline" class="bg-input px-2">
@@ -31,7 +32,7 @@
 					<span>Watching</span>
 				</Badge>
 
-				<div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-12 gap-1">
+				<Grid>
 					{const movies = [
 						{
 							show: {
@@ -90,7 +91,7 @@
 					{#each movies as show}
 						<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />	
 					{/each}
-				</div>
+				</Grid>
 			</div>
 
 			<div class="flex flex-col gap-y-2 items-center justify-center">
@@ -99,7 +100,7 @@
 					<span>Watchlist</span>
 				</Badge>
 
-				<div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-12 gap-1">
+				<Grid>
 					{const movies = watchlist.filter(media => {
 						return media.type === 'show';
 					})}
@@ -107,7 +108,7 @@
 					{#each movies as show}
 						<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />	
 					{/each}
-				</div>
+				</Grid>
 			</div>
 
 			<div class="mt-10 flex items-center justify-center">
@@ -125,7 +126,7 @@
 					<span>Watchlist</span>
 				</Badge>
 
-				<div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-12 gap-1">
+				<Grid>
 					{const movies = watchlist.filter(media => {
 						return media.type === 'movie';
 					})}
@@ -133,7 +134,7 @@
 					{#each movies as movie}
 						<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
 					{/each}
-				</div>
+				</Grid>
 			</div>
 
 			<div class="mt-10 flex items-center justify-center">
