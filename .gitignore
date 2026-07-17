@@ -1,2 +1,5 @@
 .turbo
 node_modules
+
+# https://github.com/voidzero-dev/vite-plus/issues/1756
+.svelte-kit
