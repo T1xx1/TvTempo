@@ -1,5 +1,5 @@
 {
-	"name": "@tvtempo/trakt-api",
+	"name": "@tvtempo/trakt-sdk",
 	"type": "module",
 	"exports": {
 		".": {

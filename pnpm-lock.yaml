@@ -249,9 +249,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.3.0
         version: 4.3.2(@voidzero-dev/vite-plus-core@0.2.2(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.21)(typescript@6.0.3))
-      '@tvtempo/trakt-api':
+      '@tvtempo/trakt-sdk':
         specifier: workspace:*
-        version: link:../../packages/trakt-api
+        version: link:../../packages/trakt-sdk
       '@tvtempo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -277,7 +277,7 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
-  packages/trakt-api:
+  packages/trakt-sdk:
     devDependencies:
       '@t1xx1/tsfix':
         specifier: ^1.1.1
