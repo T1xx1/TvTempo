@@ -3,7 +3,7 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import { traktClient } from '~/data/trakt.server';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	if (event.url.pathname === '/auth') {
+	if (event.url.pathname.includes('/auth')) {
 		return resolve(event);
 	}
 
