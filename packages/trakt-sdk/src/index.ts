@@ -657,7 +657,7 @@ export class TraktClient {
 
 			return movies;
 
-			console.log(movies);
+			/* console.log(movies);
 
 			const pageCounts = parseInt(res.headers.get('x-pagination-page-count') ?? '0');
 
@@ -690,7 +690,7 @@ export class TraktClient {
 				return movies.find((movie) => {
 					return movie.movie.ids.trakt === id;
 				});
-			});
+			}); */
 		},
 		/**
 		 * @see https://docs.trakt.tv/reference/getuserswatchedtyped

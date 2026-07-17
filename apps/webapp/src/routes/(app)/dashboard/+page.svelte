@@ -5,7 +5,7 @@
 	import Grid from '~/components/Grid.svelte';
 	import Media from '~/components/Media.svelte';
 
-	import { getWatchingShows, getWatchlist } from './page.remote';
+	import { getWatching, getWatchlist } from './page.remote';
 
 	// const watchingShows = await getWatchingShows();
 
