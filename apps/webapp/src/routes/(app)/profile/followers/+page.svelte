@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { ArrowLeft, UserRound } from '@lucide/svelte';
-	import { Avatar, Button, Empty } from '@tvtempo/ui';
+	import { UserRound } from '@lucide/svelte';
+	import { Avatar, Empty } from '@tvtempo/ui';
 
 	import Topbar from '~/components/Topbar.svelte';
 
-	import { getFollowers } from '../page.remote';
+	import { getFollowers } from './page.remote';
 
 	const followers = await getFollowers();
 </script>
@@ -14,7 +14,7 @@
 		{followers.length} followers
 	</Topbar>
 
-	<div class="pt-13 px-1.5 space-y-1">
+	<div class="p-1.5 pt-13 space-y-1">
 		{#each followers as follower (follower.user.ids.trakt)}
 			<div class="flex gap-2 items-center">
 				<Avatar.Root size="lg">

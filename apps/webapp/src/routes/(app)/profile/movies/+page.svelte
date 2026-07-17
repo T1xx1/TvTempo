@@ -24,7 +24,7 @@
 		{movies.length} movies
 	</Topbar>
 
-	<div class="pt-13 px-1">
+	<div class="p-1.5 pt-13">
 		<InputGroup.Root>
 			<InputGroup.Input bind:value={search} placeholder="Search movies by title..." />
 			<InputGroup.Button
