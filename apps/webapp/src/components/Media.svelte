@@ -12,6 +12,6 @@
 	} = $props();
 </script>
 
-<a href={`/${type}/${slug}`}>
+<a href={`/${type}/${slug}`} class="bg-muted border border-input rounded-lg">
 	<img src={imgSrc} {alt} class="rounded-lg" />
 </a>

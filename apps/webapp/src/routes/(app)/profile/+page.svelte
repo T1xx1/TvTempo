@@ -21,7 +21,7 @@
 
 <div>
 	<!-- header -->
-	<div class="relative bg-blackish border border-greyish rounded-b-md p-2 h-60 flex flex-col justify-between">
+	<div class="relative bg-muted border border-input rounded-b-md p-2 h-60 flex flex-col justify-between">
 		<div
 			style={`background-image: url(${url})`}
 			class="z-10 absolute inset-0 bg-no-repeat bg-contain bg-center brightness-70"
@@ -69,12 +69,12 @@
 			</a>
 
 			<div class="grid gap-1.5 grid-cols-2">
-				<div class="bg-blackish border border-grayish rounded-md p-2 flex gap-0.5 flex-col items-center justify-center">
+				<div class="bg-muted border border-grayish rounded-md p-2 flex gap-0.5 flex-col items-center justify-center">
 					<span class="text-sm">Shows watched</span>
 					<span>{stats.shows.watched}</span>
 				</div>
 
-				<div class="bg-blackish border border-grayish rounded-md p-2 flex gap-0.5 flex-col items-center justify-center">
+				<div class="bg-muted border border-grayish rounded-md p-2 flex gap-0.5 flex-col items-center justify-center">
 					<span class="text-sm">Movies watched</span>
 					<span>{stats.movies.watched}</span>
 				</div>

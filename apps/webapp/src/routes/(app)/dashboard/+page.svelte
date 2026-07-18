@@ -27,7 +27,7 @@
 </script>
 
 <Tabs.Root value="shows">
-	<Tabs.List class="fixed top-0 z-50 border border-greyish rounded-t-none h-10! w-full lg:w-3/5">
+	<Tabs.List class="fixed top-0 z-50 border border-input rounded-t-none h-10! w-full lg:w-3/5">
 		<Tabs.Trigger value="shows" class="cursor-pointer">
 			<Tv />
 			<span>Shows</span>

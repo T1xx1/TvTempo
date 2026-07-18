@@ -18,7 +18,7 @@
 	{@render children()}
 
 	<nav
-		class="fixed bottom-0 z-50 bg-blackish border border-greyish rounded-t-md py-1.5 w-full lg:w-3/5 flex items-center justify-around"
+		class="fixed bottom-0 z-50 bg-muted border border-input rounded-t-md py-1.5 w-full lg:w-3/5 flex items-center justify-around"
 	>
 		<Button href="/dashboard" variant="ghost" size="icon-lg" class="cursor-pointer">
 			<Tv class="size-6.5" />
