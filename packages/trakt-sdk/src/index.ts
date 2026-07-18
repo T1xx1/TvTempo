@@ -57,6 +57,7 @@ export class TraktClient {
 	}) => {
 		const headers = {
 			'Content-Type': 'application/json',
+			Accept: 'application/json',
 			'User-Agent': `${this.appName}/${this.appVersion}`,
 			'trakt-api-version': this.apiVersion,
 			'trakt-api-key': this.clientId,
