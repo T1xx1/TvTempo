@@ -16,15 +16,18 @@
 
 	const user = await getUser();
 	const stats = await getStats();
-	const url = 'https://media.trakt.tv/images/shows/000/039/892/posters/medium/e81b164378.jpg.webp';
+	const favouriteShows = (await getFavouriteShows());
+	const banner = favouriteShows.map(show => {
+		return show.show.images?.fanart[0];
+	});
 </script>
 
 <div>
 	<!-- header -->
 	<div class="relative bg-muted border border-input rounded-b-md p-2 h-60 flex flex-col justify-between">
 		<div
-			style={`background-image: url(${url})`}
-			class="z-10 absolute inset-0 bg-no-repeat bg-contain bg-center brightness-70"
+			style={`background-image: url(https://${banner[Math.floor(Math.random() * banner.length)]})`}
+			class="z-10 absolute inset-0 bg-no-repeat bg-cover bg-center rounded-b-md brightness-70"
 		></div>
 
 		<div class="z-20 mt-auto flex items-end justify-between">
@@ -125,8 +128,6 @@
 			</a>
 
 			<svelte:boundary>
-				{const favouriteShows = (await getFavouriteShows())}
-
 				{#if favouriteShows.length === 0}
 					<Empty.Root>
 						<Empty.Header>
