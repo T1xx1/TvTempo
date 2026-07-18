@@ -38,6 +38,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			secure: true,
 			sameSite: 'lax',
 			path: '/',
+			maxAge: expires_in * 2,
 		});
 
 		accessToken = access_token;
