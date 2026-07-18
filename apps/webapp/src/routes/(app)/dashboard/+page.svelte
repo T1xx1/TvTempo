@@ -27,7 +27,7 @@
 </script>
 
 <Tabs.Root value="shows">
-	<Tabs.List class="fixed top-0 z-50 border border-greyish rounded-t-none w-full lg:w-3/5">
+	<Tabs.List class="fixed top-0 z-50 border border-greyish rounded-t-none h-10! w-full lg:w-3/5">
 		<Tabs.Trigger value="shows" class="cursor-pointer">
 			<Tv />
 			<span>Shows</span>
@@ -39,7 +39,7 @@
 		</Tabs.Trigger>
 	</Tabs.List>
 
-	<div class="p-1.5 pt-11">
+	<div class="p-1.5 pt-12">
 		<Tabs.Content value="shows" class="space-y-4">
 			<div class="flex flex-col gap-y-2 items-center justify-center">
 				<Badge variant="outline" class="bg-input px-2">
