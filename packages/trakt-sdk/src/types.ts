@@ -4,7 +4,7 @@ export type Tokens = {
 	access_token: Token;
 	token_type: 'Bearer';
 	/**
-	 * [ms]
+	 * [s]
 	 */
 	expires_in: number;
 	refresh_token: Token;
