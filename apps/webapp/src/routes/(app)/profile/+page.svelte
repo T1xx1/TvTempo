@@ -37,7 +37,7 @@
 				<span class="text-2xl font-bold">{user.name}</span>
 			</div>
 
-			<div class="text-sm flex gap-4 items-center">
+			<div class="text-sm flex gap-3 items-center">
 				<a href="/profile/followers" class="flex flex-col items-center">
 					<span>Followers</span>
 					<span>{stats.network.followers}</span>
