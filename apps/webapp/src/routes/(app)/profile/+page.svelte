@@ -92,8 +92,7 @@
 			</a>
 
 			<svelte:boundary>
-				{const shows: any[] = []}
-				<!-- {const shows = (await getWatchedShows())} -->
+				{const shows = (await getWatchedShows())}
 
 				{#if shows.length === 0}
 					<Empty.Root>

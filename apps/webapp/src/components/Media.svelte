@@ -12,6 +12,12 @@
 	} = $props();
 </script>
 
-<a href={`/${type}/${slug}`} class="bg-muted border border-input rounded-lg">
-	<img src={imgSrc} {alt} class="rounded-lg" />
+<a href={`/${type}/${slug}`} class="bg-muted border border-input rounded-lg aspect-[1/1.42]">
+	{#if imgSrc === ''}
+		<div class="size-full flex items-center justify-center">
+			<span class="text-sm">{alt}</span>
+		</div>
+	{:else}
+		<img src={imgSrc} {alt} class="rounded-lg" />
+	{/if}
 </a>
