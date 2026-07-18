@@ -2,7 +2,6 @@
 	"$schema": "https://turbo.build/schema.json",
 	"ui": "tui",
 	"concurrency": "100%",
-	"globalEnv": ["ENABLE_EXPERIMENTAL_COREPACK"],
 	"tasks": {
 		"dev": {
 			"persistent": true,
@@ -10,8 +9,21 @@
 		},
 		"build": {
 			"dependsOn": ["^build"],
-			"env": ["PUBLIC_AUTH_REDIRECT_URL", "TRAKT_CLIENT_ID", "TRAKT_CLIENT_SECRET"],
-			"outputs": ["dist/**", ".vercel/**"]
+			"outputs": ["dist/**"]
+		},
+		"@tvtempo/webapp#dev": {
+			"persistent": true,
+			"cache": false
+		},
+		"@tvtempo/webapp#build": {
+			"dependsOn": ["^build"],
+			"env": [
+				"ENABLE_EXPERIMENTAL_COREPACK",
+				"PUBLIC_AUTH_REDIRECT_URL",
+				"TRAKT_CLIENT_ID",
+				"TRAKT_CLIENT_SECRET"
+			],
+			"outputs": [".vercel/**"]
 		}
 	}
 }
