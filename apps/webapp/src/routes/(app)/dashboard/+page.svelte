@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Bookmark, Clapperboard, Popcorn, Sparkles, Tv } from '@lucide/svelte';
-	import { Badge, Button, Tabs } from '@tvtempo/ui';
+	import { Badge, Button, Separator, Tabs } from '@tvtempo/ui';
 
 	import Grid from '~/components/Grid.svelte';
 	import Media from '~/components/Media.svelte';
@@ -81,7 +81,9 @@
 				</Grid>
 			</div>
 
-			<div class="mt-10 flex items-center justify-center">
+			<Separator class="my-12" />
+
+			<div class="flex items-center justify-center">
 				<Button
 					href="/discover"
 					variant="outline"
@@ -117,7 +119,9 @@
 				</Grid>
 			</div>
 
-			<div class="mt-10 flex items-center justify-center">
+			<Separator class="my-12" />
+
+			<div class="flex items-center justify-center">
 				<Button
 					href="/discover"
 					variant="outline"
