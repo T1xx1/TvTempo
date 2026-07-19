@@ -17,8 +17,13 @@
 	const user = await getUser();
 	const stats = await getStats();
 	const favouriteShows = (await getFavouriteShows());
-	const banner = favouriteShows.map(show => {
-		return show.show.images?.fanart[0];
+	const favouriteMovies = (await getFavouriteMovies())
+	const banner = [...favouriteShows, ...favouriteMovies].map(media => {
+		if (media.type === 'show') {
+			return media.show.images?.fanart[0];
+		} else {
+			return media.movie.images?.fanart[0]
+		}
 	});
 </script>
 
@@ -192,8 +197,6 @@
 			</a>
 
 			<svelte:boundary>
-				{const favouriteMovies = (await getFavouriteMovies())}
-
 				{#if favouriteMovies.length === 0}
 					<Empty.Root>
 						<Empty.Header>
