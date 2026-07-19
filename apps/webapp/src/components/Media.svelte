@@ -18,6 +18,6 @@
 			<span class="text-sm">{alt}</span>
 		</div>
 	{:else}
-		<img src={imgSrc} {alt} class="rounded-lg" />
+		<img src={imgSrc} {alt} class="rounded-lg" loading="lazy" />
 	{/if}
 </a>
