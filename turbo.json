@@ -8,7 +8,6 @@
 			"cache": false
 		},
 		"build": {
-			"dependsOn": ["^build"],
 			"outputs": ["dist/**"]
 		},
 		"@tvtempo/webapp#dev": {
