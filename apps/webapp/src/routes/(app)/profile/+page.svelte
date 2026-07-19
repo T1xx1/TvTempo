@@ -45,18 +45,18 @@
 				<span class="text-2xl font-bold">{user.name}</span>
 			</div>
 
-			<div class="text-sm flex items-center">
-				<a href="/profile/followers" class="w-18 flex flex-col items-center">
+			<div class="px-1 text-sm flex gap-2.5 items-center">
+				<a href="/profile/followers" class="flex flex-col items-center">
 					<span>Followers</span>
 					<span>{stats.network.followers}</span>
 				</a>
 
-				<a href="/profile/following" class="w-18 flex flex-col items-center">
+				<a href="/profile/following" class="flex flex-col items-center">
 					<span>Following</span>
 					<span>{stats.network.following}</span>
 				</a>
 
-				<a href="/profile/friends" class="w-18 flex flex-col items-center">
+				<a href="/profile/friends" class="flex flex-col items-center">
 					<span>Friends</span>
 					<span>{stats.network.friends}</span>
 				</a>
