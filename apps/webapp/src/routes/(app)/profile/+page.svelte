@@ -29,7 +29,7 @@
 
 <div>
 	<!-- header -->
-	<div class="relative bg-muted border border-input rounded-b-md p-2 h-60 flex flex-col justify-between">
+	<div class="relative bg-muted border border-input rounded-b-md p-2 h-40 flex flex-col justify-between">
 		<div
 			style={`background-image: url(https://${banner[Math.floor(Math.random() * banner.length)]})`}
 			class="z-10 absolute inset-0 bg-no-repeat bg-cover bg-center rounded-b-md brightness-70"
