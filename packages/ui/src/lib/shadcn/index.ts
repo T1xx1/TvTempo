@@ -1,4 +1,4 @@
-export * from './utils.ts'
+export * from './utils.ts';
 
 import {
 	AlertDialog,
@@ -86,7 +86,19 @@ export { Checkbox } from './checkbox/index.ts';
 
 /*  */
 
-import { Drawer, DrawerNestedRoot, DrawerContent, DrawerDescription, DrawerOverlay, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerPortal, DrawerClose } from './drawer/index.ts';
+import {
+	Drawer,
+	DrawerNestedRoot,
+	DrawerContent,
+	DrawerDescription,
+	DrawerOverlay,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
+	DrawerPortal,
+	DrawerClose,
+} from './drawer/index.ts';
 
 const DrawerComponents = {
 	Root: Drawer,
@@ -150,7 +162,14 @@ export { DropdownMenuComponents as DropdownMenu };
 
 /*  */
 
-import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from './empty/index.ts'
+import {
+	Empty,
+	EmptyHeader,
+	EmptyMedia,
+	EmptyTitle,
+	EmptyDescription,
+	EmptyContent,
+} from './empty/index.ts';
 
 const EmptyComponents = {
 	Root: Empty,
@@ -169,7 +188,14 @@ export { Input } from './input/index.ts';
 
 /*  */
 
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea } from './input-group/index.ts'
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+	InputGroupText,
+	InputGroupTextarea,
+} from './input-group/index.ts';
 
 const InputGroupComponents = {
 	Root: InputGroup,
@@ -225,3 +251,24 @@ export { TabsComponents as Tabs };
 /*  */
 
 export { Textarea } from './textarea/index.ts';
+
+/*  */
+
+export {
+	Toggle,
+	toggleVariants,
+	type ToggleSize,
+	type ToggleVariant,
+	type ToggleVariants,
+} from './toggle/index.ts';
+
+/*  */
+
+import { ToggleGroup, ToggleGroupItem } from './toggle-group/index.ts';
+
+const ToggleGroupComponents = {
+	Root: ToggleGroup,
+	Item: ToggleGroupItem,
+};
+
+export { ToggleGroupComponents as ToggleGroup };
