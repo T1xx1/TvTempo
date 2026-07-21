@@ -11,6 +11,8 @@ import type {
 	ShowFull,
 	Movie,
 	Show,
+	Language,
+	Country,
 } from './types.js';
 
 export class TraktClient {
@@ -1063,9 +1065,53 @@ export class TraktClient {
 	// smartList = {};
 	// comments = {};
 	// certifications = {};
-	// countries = {};
+
+	countries = {
+		/**
+		 * @see https://docs.trakt.tv/reference/getcountrieslist
+		 */
+		getCountries: async ({ token, type = 'movie' }: { token: Token; type?: 'movie' | 'show' }) => {
+			const url = new URL(`${this.apiOrigin}/countries/${type}`);
+
+			const res = await this.fetch({
+				url,
+				token,
+			});
+
+			return (await res.json()) as {
+				name: string;
+				code: Country;
+			}[];
+		},
+	};
+
 	// genres = {};
-	// languages = {};
+
+	languages = {
+		/**
+		 * @see https://docs.trakt.tv/reference/getlanguageslist
+		 */
+		getLanguages: async ({
+			token,
+			type = 'movies',
+		}: {
+			token: Token;
+			type?: 'movies' | 'shows';
+		}) => {
+			const url = new URL(`${this.apiOrigin}/languages/${type}`);
+
+			const res = await this.fetch({
+				url,
+				token,
+			});
+
+			return (await res.json()) as {
+				name: string;
+				code: Language;
+			}[];
+		},
+	};
+
 	// networks = {};
 	// scrobble = {};
 	// team = {};
