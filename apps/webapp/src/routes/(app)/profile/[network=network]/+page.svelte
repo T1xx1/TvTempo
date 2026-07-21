@@ -4,25 +4,29 @@
 
 	import Topbar from '~/components/Topbar.svelte';
 
-	import { getFriends } from './page.remote';
+	import { getNetwork } from './page.remote';
 
-	const friends = await getFriends();
+	const { data } = $props();
+	const { network: networkType } = $derived(data);
+
+	const network = $derived(await getNetwork(networkType));
 </script>
 
 <div>
 	<Topbar>
-		{friends.length} friends
+		{network.length}
+		{networkType}
 	</Topbar>
 
 	<div class="p-1.5 pt-13 space-y-1">
-		{#each friends as friend (friend.user.ids.trakt)}
+		{#each network as user (user.user.ids.trakt)}
 			<div class="flex gap-2 items-center">
 				<Avatar.Root size="lg">
-					<Avatar.Image src={friend.user.images.avatar.full} />
-					<Avatar.Fallback>{friend.user.username[0]}</Avatar.Fallback>
+					<Avatar.Image src={user.user.images.avatar.full} />
+					<Avatar.Fallback>{(user.user.name ?? user.user.username)[0]}</Avatar.Fallback>
 				</Avatar.Root>
 
-				<span>{friend.user.name}</span>
+				<span>{user.user.name ?? user.user.username}</span>
 			</div>
 		{:else}
 			<Empty.Root>
@@ -31,7 +35,7 @@
 						<UserRound />
 					</Empty.Media>
 
-					<Empty.Title>No friends</Empty.Title>
+					<Empty.Title>No {networkType}</Empty.Title>
 				</Empty.Header>
 			</Empty.Root>
 		{/each}
