@@ -679,6 +679,10 @@ export class TraktClient {
 				/**
 				 * [int]
 				 */
+				plays: number;
+				/**
+				 * [int]
+				 */
 				total_count: number;
 			}[];
 
@@ -771,7 +775,11 @@ export class TraktClient {
 				 * [date]
 				 */
 				last_watched_at: string;
-				movie: Movie;
+				movie: MovieFull;
+				/**
+				 * [int]
+				 */
+				plays: number;
 				/**
 				 * [int]
 				 */
@@ -782,6 +790,7 @@ export class TraktClient {
 		},
 
 		/**
+		 * @see https://docs.trakt.tv/reference/getuserswatchedtyped
 		 * @see https://docs.trakt.tv/reference/getuserswatchedminimalshows
 		 */
 		getWatchedShows: async ({
@@ -824,11 +833,24 @@ export class TraktClient {
 			});
 
 			return (await res.json()) as {
-				// ...
+				/**
+				 * [int]
+				 */
+				plays: number;
+				/**
+				 * [date]
+				 */
+				last_watched_at: string;
+				/**
+				 * [date]
+				 */
+				last_updated_at: string;
+				resets_at: null | string;
 				show: Show;
 			}[];
 		},
 		/**
+		 * @see https://docs.trakt.tv/reference/getuserswatchedtyped
 		 * @see https://docs.trakt.tv/reference/getuserswatchedminimalshows
 		 */
 		getWatchedShowsFull: async ({
