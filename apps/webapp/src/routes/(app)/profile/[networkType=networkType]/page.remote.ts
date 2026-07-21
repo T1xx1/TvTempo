@@ -3,9 +3,9 @@ import { redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 import { traktClient } from '~/data/trakt.server';
-import { networks } from '~/params/network';
+import { networkTypes } from '~/params/networkType';
 
-export const getNetwork = query(z.enum(networks), async (network) => {
+export const getNetwork = query(z.enum(networkTypes), async (network) => {
 	const { locals } = getRequestEvent();
 
 	switch (network) {

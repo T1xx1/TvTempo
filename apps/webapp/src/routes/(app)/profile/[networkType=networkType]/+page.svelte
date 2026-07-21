@@ -7,7 +7,7 @@
 	import { getNetwork } from './page.remote';
 
 	const { data } = $props();
-	const { network: networkType } = $derived(data);
+	const { networkType } = $derived(data);
 
 	const network = $derived(await getNetwork(networkType));
 </script>
