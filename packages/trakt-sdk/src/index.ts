@@ -788,6 +788,65 @@ export class TraktClient {
 
 			return movies;
 		},
+		/**
+		 * @see https://docs.trakt.tv/reference/getuserswatchedtyped
+		 * @see https://docs.trakt.tv/reference/getuserswatchedminimalmovies
+		 */
+		getWatchedMoviesFullAll: async ({
+			token,
+			userId = 'me',
+		}: {
+			token: Token;
+			userId?: UserId;
+		}) => {
+			const url = new URL(
+				`${this.apiOrigin}/users/${userId}/watched/movies?extended=full&limit=250`,
+			);
+
+			const res = await this.fetch({
+				url,
+				token,
+			});
+
+			type Res = {
+				/**
+				 * [date]
+				 */
+				last_updated_at: string;
+				/**
+				 * [date]
+				 */
+				last_watched_at: string;
+				movie: MovieFull;
+				/**
+				 * [int]
+				 */
+				plays: number;
+				/**
+				 * [int]
+				 */
+				total_count: number;
+			}[];
+
+			const movies = (await res.json()) as Res;
+
+			const pages = parseInt(res.headers.get('x-pagination-page-count') ?? '0');
+
+			for (let i = 2; i <= pages; i++) {
+				url.searchParams.set('page', i.toString());
+
+				movies.push(
+					...((await (
+						await this.fetch({
+							url,
+							token,
+						})
+					).json()) as Res),
+				);
+			}
+
+			return movies;
+		},
 
 		/**
 		 * @see https://docs.trakt.tv/reference/getuserswatchedtyped
@@ -893,9 +952,71 @@ export class TraktClient {
 			});
 
 			return (await res.json()) as {
-				// ...
-				show: Show;
+				/**
+				 * [int]
+				 */
+				plays: number;
+				/**
+				 * [date]
+				 */
+				last_watched_at: string;
+				/**
+				 * [date]
+				 */
+				last_updated_at: string;
+				resets_at: null | string;
+				show: ShowFull;
 			}[];
+		},
+		/**
+		 * @see https://docs.trakt.tv/reference/getuserswatchedtyped
+		 * @see https://docs.trakt.tv/reference/getuserswatchedminimalshows
+		 */
+		getWatchedShowsFullAll: async ({ token, userId = 'me' }: { token: Token; userId?: UserId }) => {
+			const url = new URL(
+				`${this.apiOrigin}/users/${userId}/watched/shows?extended=full&limit=250`,
+			);
+
+			const res = await this.fetch({
+				url,
+				token,
+			});
+
+			type Res = {
+				/**
+				 * [int]
+				 */
+				plays: number;
+				/**
+				 * [date]
+				 */
+				last_watched_at: string;
+				/**
+				 * [date]
+				 */
+				last_updated_at: string;
+				resets_at: null | string;
+				show: ShowFull;
+			}[];
+
+			const movies = (await res.json()) as Res;
+
+			const pages = parseInt(res.headers.get('x-pagination-page-count') ?? '0');
+
+			for (let i = 2; i <= pages; i++) {
+				url.searchParams.set('page', i.toString());
+
+				movies.push(
+					...((await (
+						await this.fetch({
+							url,
+							token,
+						})
+					).json()) as Res),
+				);
+			}
+
+			return movies;
 		},
 
 		/**

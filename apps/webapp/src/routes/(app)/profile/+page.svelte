@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ChartLine, ChevronRight, Clapperboard, Tv } from '@lucide/svelte';
+	import { ChartLine, ChevronRight, Clapperboard, Heart, Tv } from '@lucide/svelte';
 	import { Avatar, Empty } from '@tvtempo/ui';
 
 	import Grid from '~/components/Grid.svelte';
@@ -123,9 +123,9 @@
 		</div>
 
 		<div class="space-y-1.5">
-			<a href="/profile/shows" class="group flex items-center justify-between">
+			<a href="/profile/shows?isFavourite" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Tv class="size-5 text-primary" />
+					<Heart class="size-5 stroke-red-500 fill-red-500" />
 					<span>Favourite shows</span>
 				</h2>
 
@@ -187,9 +187,9 @@
 		</div>
 
 		<div class="space-y-1.5">
-			<a href="/profile/movies" class="group flex items-center justify-between">
+			<a href="/profile/movies?isFavourite" class="group flex items-center justify-between">
 				<h2 class="text-lg flex gap-1 items-center">
-					<Clapperboard class="size-5 text-primary" />
+					<Heart class="size-5 stroke-red-500 fill-red-500" />
 					<span>Favourite movies</span>
 				</h2>
 
