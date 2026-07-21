@@ -481,11 +481,11 @@ export class TraktClient {
 			sortBy?: 'listed_at' | 'title';
 			sortHow?: 'asc' | 'desc';
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 			// ...
@@ -495,9 +495,17 @@ export class TraktClient {
 			);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -552,11 +560,11 @@ export class TraktClient {
 			sortBy?: '' | 'title';
 			sortHow?: 'asc' | 'desc';
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
@@ -565,9 +573,17 @@ export class TraktClient {
 			);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -620,20 +636,28 @@ export class TraktClient {
 			token: string;
 			userId?: UserId;
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/watched/movies`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -708,20 +732,28 @@ export class TraktClient {
 			token: Token;
 			userId?: UserId;
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/watched/movies?extended=full`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -761,20 +793,28 @@ export class TraktClient {
 			token: string;
 			userId?: UserId;
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/watched/shows`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -800,20 +840,28 @@ export class TraktClient {
 			token: Token;
 			userId?: UserId;
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/watched/shows?extended=full`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -840,15 +888,29 @@ export class TraktClient {
 		}: {
 			token: Token;
 			userId?: UserId;
+			/**
+			 * [int] [1, +∞)
+			 */
 			page?: number;
+			/**
+			 * [int] [1, 250]
+			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/movies`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -891,15 +953,29 @@ export class TraktClient {
 		}: {
 			token: Token;
 			userId?: UserId;
+			/**
+			 * [int] [1, +∞)
+			 */
 			page?: number;
+			/**
+			 * [int] [1, 250]
+			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/movies?extended=full`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -944,20 +1020,28 @@ export class TraktClient {
 			token: Token;
 			userId?: UserId;
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/shows`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
@@ -1001,20 +1085,28 @@ export class TraktClient {
 			token: Token;
 			userId?: UserId;
 			/**
-			 * [int]
+			 * [int] [1, +∞)
 			 */
 			page?: number;
 			/**
-			 * [int]
+			 * [int] [1, 250]
 			 */
 			limit?: number;
 		}) => {
 			const url = new URL(`${this.apiOrigin}/users/${userId}/favorites/shows?extended=full`);
 
 			if (page) {
+				if (!Number.isInteger(page) && page < 1) {
+					throw new Error('`page` must be an integer greater than 1');
+				}
+
 				url.searchParams.append('page', page.toString());
 			}
 			if (limit) {
+				if (!Number.isInteger(limit) && limit < 1 && limit > 250) {
+					throw new Error('`limit` must be an integer between 1 and 250');
+				}
+
 				url.searchParams.append('limit', limit.toString());
 			}
 
