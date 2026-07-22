@@ -30,7 +30,7 @@
 
 <div class="space-y-1">
 	<div
-		class="relative bg-muted border border-input rounded-b-md p-2 h-44 flex flex-col justify-between"
+		class="relative bg-muted border border-input rounded-b-md p-1 h-44 flex flex-col justify-between"
 	>
 		<div
 			style={`background-image: url(https://${media?.images?.fanart[0]})`}
@@ -49,8 +49,12 @@
 			</Button>
 		</div>
 
-		<div class="z-10 flex flex-col">
+		<div class="z-10 p-1.5 flex flex-col">
 			<span class="text-lg font-semibold">{media.title}</span>
+
+			{#if media.type === 'show'}
+				<span class="text-xs">{media.network}</span>
+			{/if}
 		</div>
 	</div>
 
@@ -59,7 +63,7 @@
 			<Tabs.Trigger value="info" class="cursor-pointer">Info</Tabs.Trigger>
 			
 			{#if media.type === 'show'}
-				<Tabs.Trigger value="episodes" class="cursor-pointer">Episodes</Tabs.Trigger>
+				<Tabs.Trigger value="episodes" class="cursor-pointer">Episodes ({media.aired_episodes})</Tabs.Trigger>
 			{/if}
 
 			<Tabs.Trigger value="images" class="cursor-pointer">Images</Tabs.Trigger>
@@ -70,38 +74,22 @@
 				<div class="space-y-1.5">
 					<div class="text-lg font-semibold">Info</div>
 
-					<div class="flex gap-1.5 items-center">
-						{#if media.type === 'show'}
-							<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
-								<span class="text-sm">Episodes</span>
-								<span>{media.aired_episodes}</span>
-							</div>
+					<div class="flex gap-1.5 items-center">					
+						<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
+							<span class="text-sm">Time</span>
+							<span>
+								{#if media.type === 'show' && media.total_runtime}
+									{formatMin(media.total_runtime)}
+								{:else if media.runtime}
+									{formatMin(media.runtime)}
+								{/if}
+							</span>
+						</div>
 
-							<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
-								<span class="text-sm">Time</span>
-								<span>{formatMin(media.total_runtime)}</span>
-							</div>
-
-							<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
-								<span class="text-sm">Year</span>
-								<span>{media.year}</span>
-							</div>	
-
-							<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
-								<span class="text-sm">Network</span>
-								<span>{media.network}</span>
-							</div>							
-						{:else}
-							<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
-								<span class="text-sm">Time</span>
-								<span>{formatMin(media.runtime)}</span>
-							</div>
-
-							<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
-								<span class="text-sm">Year</span>
-								<span>{media.year}</span>
-							</div>	
-						{/if}
+						<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
+							<span class="text-sm">Year</span>
+							<span>{media.year}</span>
+						</div>	
 
 						<div class="bg-muted border border-input rounded-md py-2 w-full flex flex-col gap-0.5 items-center">
 							<span>Rating</span>
@@ -121,15 +109,17 @@
 					</div>
 				</div>
 
-				<div class="space-y-1.5">
-					<div class="text-lg font-semibold">Trailer</div>
+				{#if media.trailer}
+					<div class="space-y-1.5">
+						<div class="text-lg font-semibold">Trailer</div>
 
-					{const videoId = new URL(media.trailer ?? '').searchParams.get('v')}
+						{const videoId = new URL(media.trailer).searchParams.get('v')}
 
-					<iframe src={`https://www.youtube.com/embed/${videoId}`} class="rounded-lg aspect-video w-full" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-				</div>
+						<iframe src={`https://www.youtube.com/embed/${videoId}`} class="rounded-lg aspect-video w-full" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					</div>
+				{/if}
 
-				<div class="mt-14 flex items-center justify-center">
+				<div class="mt-12 flex items-center justify-center">
 					<Button href={`https://app.trakt.tv/shows/${media.ids.trakt}`} target="_blank" variant="ghost" class="rounded-full">
 						<img src={trakt} alt="Trakt" class="size-4" />
 					</Button>
