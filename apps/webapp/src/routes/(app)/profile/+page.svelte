@@ -29,13 +29,13 @@
 
 <div>
 	<!-- header -->
-	<div class="relative bg-muted border border-input rounded-b-md p-2 h-40 flex flex-col justify-between">
+	<div class="relative bg-muted border border-input rounded-b-md p-2 h-44 flex flex-col justify-between">
 		<div
 			style={`background-image: url(https://${banner[Math.floor(Math.random() * banner.length)]})`}
-			class="z-10 absolute inset-0 bg-no-repeat bg-cover bg-center rounded-b-md brightness-70"
+			class="z-10 absolute inset-0 bg-no-repeat bg-cover bg-center rounded-b-md brightness-60"
 		></div>
 
-		<div class="z-20 mt-auto flex items-end justify-between">
+		<div class="z-10 mt-auto flex items-end justify-between">
 			<div class="flex gap-2.5 items-center">
 				<Avatar.Root class="size-18">
 					<Avatar.Image src={user.images.avatar.full} />
