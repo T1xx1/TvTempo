@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Topbar from '~/components/Topbar.svelte';
 
-	import { formatMin } from '~/utils/formatMin';
+	import { formatMin } from '~/lib/formatMin';
 
 	import { getStats } from '../page.remote';
 
