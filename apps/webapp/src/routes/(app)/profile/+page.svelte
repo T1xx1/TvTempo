@@ -64,11 +64,11 @@
 		</div>
 	</div>
 
-	<div class="p-1.5 space-y-4">
+	<div class="p-1.5 space-y-6">
 		<!-- stats -->
-		<div class="space-y-1.5">
+		<div class="space-y-2">
 			<a href="/profile/stats" class="group flex items-center justify-between">
-				<h2 class="text-lg flex gap-1 items-center">
+				<h2 class="text-lg flex gap-1.5 items-center">
 					<ChartLine class="size-5" />
 					<span>Statistics</span>
 				</h2>
@@ -89,9 +89,9 @@
 			</div>
 		</div>
 
-		<div class="space-y-1.5">
+		<div class="space-y-2">
 			<a href="/profile/shows" class="group flex items-center justify-between">
-				<h2 class="text-lg flex gap-1 items-center">
+				<h2 class="text-lg flex gap-1.5 items-center">
 					<Tv class="size-5" />
 					<span>Shows</span>
 				</h2>
@@ -122,9 +122,9 @@
 			</svelte:boundary>
 		</div>
 
-		<div class="space-y-1.5">
+		<div class="space-y-2">
 			<a href="/profile/shows?isFavourite" class="group flex items-center justify-between">
-				<h2 class="text-lg flex gap-1 items-center">
+				<h2 class="text-lg flex gap-1.5 items-center">
 					<Heart class="size-5 stroke-red-500 fill-red-500" />
 					<span>Favourite shows</span>
 				</h2>
@@ -153,9 +153,9 @@
 			</svelte:boundary>
 		</div>
 
-		<div class="space-y-1.5">
+		<div class="space-y-2">
 			<a href="/profile/movies" class="group flex items-center justify-between">
-				<h2 class="text-lg flex gap-1 items-center">
+				<h2 class="text-lg flex gap-1.5 items-center">
 					<Clapperboard class="size-5" />
 					<span>Movies</span>
 				</h2>
@@ -186,9 +186,9 @@
 			</svelte:boundary>
 		</div>
 
-		<div class="space-y-1.5">
+		<div class="space-y-2">
 			<a href="/profile/movies?isFavourite" class="group flex items-center justify-between">
-				<h2 class="text-lg flex gap-1 items-center">
+				<h2 class="text-lg flex gap-1.5 items-center">
 					<Heart class="size-5 stroke-red-500 fill-red-500" />
 					<span>Favourite movies</span>
 				</h2>
