@@ -17,7 +17,7 @@
 </script>
 
 <a
-	href={`/${type}/${slug}`}
+	href={`/m/${type}/${slug}`}
 	class="relative bg-muted border border-input/25 rounded-lg aspect-[1/1.42]"
 >
 	{#if imgSrc === ''}

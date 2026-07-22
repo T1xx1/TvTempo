@@ -1287,8 +1287,65 @@ export class TraktClient {
 	// lists = {};
 	// sync = {};
 	// recommendations = {};
-	// movies = {};
-	// shows = {};
+
+	movies = {
+		/**
+		 * @see https://docs.trakt.tv/reference/getmoviessummary
+		 */
+		getMovie: async ({ id }: { id: string }) => {
+			const url = new URL(`${this.apiOrigin}/movies/${id}`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as MovieFull;
+		},
+		/**
+		 * @see https://docs.trakt.tv/reference/getmoviessummary
+		 */
+		getMovieFull: async ({ id }: { id: string }) => {
+			const url = new URL(`${this.apiOrigin}/movies/${id}?extended=full`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as MovieFull;
+		},
+
+		// ...
+	};
+
+	shows = {
+		/**
+		 * @see https://docs.trakt.tv/reference/getshowssummary
+		 */
+		getShow: async ({ id }: { id: string }) => {
+			const url = new URL(`${this.apiOrigin}/shows/${id}`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as Show;
+		},
+		/**
+		 * @see https://docs.trakt.tv/reference/getshowssummary
+		 */
+		getShowFull: async ({ id }: { id: string }) => {
+			const url = new URL(`${this.apiOrigin}/shows/${id}?extended=full`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as ShowFull;
+		},
+
+		// ...
+	};
+
 	// socialRecommendations = {};
 	// media = {};
 	// notes = {};
