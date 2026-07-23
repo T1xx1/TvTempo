@@ -34,3 +34,20 @@ export const getMedia = query(
 		}
 	},
 );
+export const getSeasons = query(z.string(), async (slug) => {
+	return await traktClient.shows.getSeasonsFull({
+		id: slug,
+	});
+});
+export const getEpisodes = query(
+	z.object({
+		slug: z.string(),
+		season: z.number().int().nonnegative(),
+	}),
+	async ({ slug, season }) => {
+		return await traktClient.shows.getSeasonEpisodes({
+			id: slug,
+			season,
+		});
+	},
+);

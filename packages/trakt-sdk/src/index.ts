@@ -1343,6 +1343,218 @@ export class TraktClient {
 			return (await res.json()) as ShowFull;
 		},
 
+		/**
+		 * @see https://docs.trakt.tv/reference/getshowsseasons
+		 */
+		getSeasons: async ({ id }: { id: string }) => {
+			const url = new URL(`${this.apiOrigin}/shows/${id}/seasons`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as {
+				ids: {
+					plex: {
+						guid: string;
+					};
+					/**
+					 * [int]
+					 */
+					tmdb: number;
+					/**
+					 * [int]
+					 */
+					tvdb: number;
+					/**
+					 * [int]
+					 */
+					trakt: number;
+				};
+				/**
+				 * [int]
+				 */
+				number: number;
+			}[];
+		},
+		/**
+		 * @see https://docs.trakt.tv/reference/getshowsseasons
+		 */
+		getSeasonsFull: async ({ id }: { id: string }) => {
+			const url = new URL(`${this.apiOrigin}/shows/${id}/seasons?extended=full`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as {
+				ids: {
+					plex: {
+						guid: string;
+					};
+					/**
+					 * [int]
+					 */
+					tmdb: number;
+					/**
+					 * [int]
+					 */
+					tvdb: number;
+					/**
+					 * [int]
+					 */
+					trakt: number;
+				};
+				title: string;
+				/**
+				 * [int]
+				 */
+				votes: number;
+				images: {
+					/**
+					 * [url] Without https://
+					 */
+					thumb: string[];
+					/**
+					 * [url] Without https://
+					 */
+					poster: string[];
+				};
+				/**
+				 * [int]
+				 */
+				number: number;
+				/**
+				 * [float]
+				 */
+				rating: number;
+				network: null | string;
+				overview: null | string;
+				/**
+				 * [date]
+				 */
+				updated_at: string;
+				/**
+				 * [date]
+				 */
+				first_aired: string;
+				/**
+				 * [int]
+				 */
+				episode_count: number;
+				/**
+				 * [min]
+				 */
+				total_runtime: number;
+				/**
+				 * [int]
+				 */
+				aired_episodes: number;
+				original_title: string;
+			}[];
+		},
+
+		/**
+		 * @see https://docs.trakt.tv/reference/getshowsseasonepisodes
+		 */
+		getSeasonEpisodes: async ({
+			id,
+			season,
+		}: {
+			id: string;
+			/**
+			 * [int]
+			 */
+			season: number;
+		}) => {
+			const url = new URL(`${this.apiOrigin}/shows/${id}/seasons/${season}?extended=full`);
+
+			const res = await this.fetch({
+				url,
+			});
+
+			return (await res.json()) as {
+				/**
+				 * [int]
+				 */
+				season: number;
+				/**
+				 * [int]
+				 */
+				number: number;
+				title: null | string;
+				/**
+				 * [date]
+				 */
+				first_aired: null | string;
+				/**
+				 * [date]
+				 */
+				released: null | string;
+				/**
+				 * [date]
+				 */
+				effective_release_date: null | string;
+				number_abs: null | number;
+				/**
+				 * [float]
+				 */
+				rating: null | number;
+				/**
+				 * [int]
+				 */
+				votes: null | number;
+				/**
+				 * [int]
+				 */
+				comment_count: null | number;
+				/**
+				 * [date]
+				 */
+				updated_at: null | string;
+				aviable_translations: null | Language[];
+				/**
+				 * [int]
+				 */
+				runtime: null | number;
+				overview: null | string;
+				episode_type:
+					| null
+					| 'standard'
+					| 'series_premiere'
+					| 'season_premiere'
+					| 'mid_season_finale'
+					| 'mid_season_premiere'
+					| 'season_finale'
+					| 'series_finale';
+				ids: {
+					trakt: number;
+					/**
+					 * [int]
+					 */
+					tvdb: null | number;
+					/**
+					 * [int]
+					 */
+					imdb: null | string;
+					/**
+					 * [int]
+					 */
+					tmdb: null | number;
+					plex: {
+						guid: null | string;
+						slug: null | string;
+					};
+				};
+				original_title: null | string;
+				after_credits: null | string;
+				during_credits: null | string;
+				images: null | {
+					screenshot: string[];
+				};
+			};
+		},
+
 		// ...
 	};
 

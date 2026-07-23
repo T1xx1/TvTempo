@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { ArrowLeft, Globe, Image } from '@lucide/svelte';
-	import { Badge, Button, Empty, Tabs } from '@tvtempo/ui';
+	import { ArrowLeft, ChevronDown, Globe, Image } from '@lucide/svelte';
+	import { Badge, Button, Collapsible, Empty, Tabs } from '@tvtempo/ui';
 
 	import facebook from '~/assets/facebook.svg';
 	import imdb from '~/assets/imdb.svg';
@@ -15,7 +15,7 @@
 	import { formatMin } from '~/lib/formatMin';
 	import { formatNum } from '~/lib/formatNum';
 
-	import { getMedia } from './page.remote';
+	import { getEpisodes, getMedia, getSeasons } from './page.remote';
 
 	const { data } = $props();
 	const { mediaType, slug } = $derived(data);
@@ -172,6 +172,48 @@
 		</Tabs.Content>
 
 		{#if mediaType === 'show'}
+			<Tabs.Content value="episodes">
+				{const seasons = $derived(await getSeasons(slug))}
+
+				<div class="px-1 flex flex-col gap-2">
+					{#each seasons as season, i (season.number)}
+						{const episodes = $derived(await getEpisodes({ slug, season: season.number }))}
+						{let open = $state(false)}
+
+						<Collapsible.Root>
+							<Collapsible.Trigger class="bg-muted border border-input rounded-md py-2 px-2.5 w-full flex items-center justify-between" onclick={() => {
+								open = !open;
+							}}>
+								<span class="font-semibold">{season.title}</span>
+								
+								<div class="flex gap-4 items-center">
+									<span>{episodes.length}</span>
+
+									<ChevronDown class={['size-4 cursor-pointer', open ? 'rotate-180' : '']} />
+								</div>
+							</Collapsible.Trigger>
+
+							<Collapsible.Content class="pt-1 flex flex-col gap-1">
+								{#each episodes as episode, i (episode.number)}
+									<div class="bg-muted border border-input rounded-md flex gap-2 items-center">
+										<div style={`background-image: url(https://${episode.images.screenshot[0]})`} class="bg-no-repeat bg-center bg-cover rounded-l-md aspect-square h-16"></div>
+
+										<div>
+											<div class="flex flex-col">
+												<span class="text-sm">Episode {i + 1}</span>
+												<span class="text-[10px]">{episode.title}</span>
+											</div>
+
+											<div></div>
+										</div>
+									</div>
+								{/each}
+							</Collapsible.Content>
+						</Collapsible.Root>
+					{/each}
+				</div>
+			</Tabs.Content>
+		{/if}
 
 		<Tabs.Content value="images">
 			<div>
