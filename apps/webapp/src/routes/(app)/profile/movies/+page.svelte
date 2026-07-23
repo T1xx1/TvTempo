@@ -53,10 +53,7 @@
 				variant="outline"
 				size="sm"
 				class="cursor-pointer"
-				pressed={isFavourite}
-				onclick={() => {
-					isFavourite = !isFavourite;
-				}}
+				bind:pressed={isFavourite}
 			>
 				<Heart class={isFavourite ? 'text-red-500 fill-red-500' : 'text-gray-500'} />
 				<span>Favourite</span>
