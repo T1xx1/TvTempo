@@ -86,6 +86,18 @@ export { Checkbox } from './checkbox/index.ts';
 
 /*  */
 
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible/index.ts';
+
+const CollapsibleComponents = {
+	Root: Collapsible,
+	Content: CollapsibleContent,
+	Trigger: CollapsibleTrigger,
+};
+
+export { CollapsibleComponents as Collapsible };
+
+/*  */
+
 import {
 	Drawer,
 	DrawerNestedRoot,
