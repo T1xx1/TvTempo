@@ -145,7 +145,7 @@
 					</Empty.Root>
 				{:else}
 					<Grid>
-						{#each favouriteShows as show}
+						{#each favouriteShows as show (show.show.ids.trakt)}
 							<Media type="show" slug={show.show.ids.slug} imgSrc={`https://${show.show.images.poster[0]}`} alt={show.show.title} />						
 						{/each}
 					</Grid>
@@ -178,7 +178,7 @@
 					</Empty.Root>
 				{:else}
 					<Grid>
-						{#each movies as movie}
+						{#each movies as movie (movie.movie.ids.trakt)}
 							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
 						{/each}
 					</Grid>
@@ -209,7 +209,7 @@
 					</Empty.Root>
 				{:else}
 					<Grid>
-						{#each favouriteMovies as movie}
+						{#each favouriteMovies as movie (movie.movie.ids.trakt)}
 							<Media type="movie" slug={movie.movie.ids.slug} imgSrc={`https://${movie.movie.images.poster[0]}`} alt={movie.movie.title} />
 						{/each}
 					</Grid>

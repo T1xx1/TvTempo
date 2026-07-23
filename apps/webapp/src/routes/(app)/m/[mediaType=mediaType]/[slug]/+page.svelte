@@ -102,7 +102,7 @@
 					<div class="space-y-1.5">
 						<div class="font-semibold">Genres</div>
 						<div class="flex flex-wrap gap-1.5 items-center">
-							{#each [...(media.genres ?? []), ...(media.subgenres ?? [])] as genre}
+							{#each [...(media.genres ?? []), ...(media.subgenres ?? [])] as genre (genre)}
 								<Badge variant="outline">{genre}</Badge>
 							{/each}
 						</div>
@@ -238,7 +238,7 @@
 					</Empty.Root>
 				{:else}
 					<div class="grid grid-cols-3 md:grid-cols-4 gap-1">
-						{#each images as image}
+						{#each images as image (image)}
 							<a href={`https://${image}`} target="_blank" title={media.title} style={`background-image: url(https://${image})`} class="bg-contain bg-no-repeat bg-center bg-muted border border-input/25 rounded-lg size-full aspect-square"></a>
 						{/each}
 					</div>

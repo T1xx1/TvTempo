@@ -48,7 +48,7 @@
 				</Badge>
 
 				<Grid>
-					{#each watchingShows as show}
+					{#each watchingShows as show (show.show.ids.slug)}
 						<Media
 							type="show"
 							slug={show.show.ids.slug}
@@ -70,7 +70,7 @@
 						return media.type === 'show';
 					})}
 
-					{#each watchlistShows as show}
+					{#each watchlistShows as show (show.show.ids.trakt)}
 						<Media
 							type="show"
 							slug={show.show.ids.slug}
@@ -108,7 +108,7 @@
 						return media.type === 'movie';
 					})}
 
-					{#each watchlistMovies as movie}
+					{#each watchlistMovies as movie (movie.movie.ids.trakt)}
 						<Media
 							type="movie"
 							slug={movie.movie.ids.slug}

@@ -98,7 +98,7 @@
 			</Empty.Root>
 		{:else}
 			<Grid>
-				{#each filteredMovies as movie}
+				{#each filteredMovies as movie (movie.movie.ids.trakt)}
 					{const isFavourite = favouriteMovies.some(favouriteMovie => {
 						return favouriteMovie.movie.ids.trakt === movie.movie.ids.trakt;
 					})}
