@@ -121,23 +121,23 @@
 
 				<div class="mt-12 flex items-center justify-center">
 					<Button href={`https://app.trakt.tv/shows/${media.ids.trakt}`} target="_blank" variant="ghost" class="rounded-full">
-						<img src={trakt} alt="Trakt" class="size-4" />
+						<img src={trakt} alt="Trakt" class="size-4" loading="lazy" />
 					</Button>
 
 					<Button href={`https://themoviedb.org/tv/${media.ids.tmdb}`} target="_blank" variant="ghost" class="rounded-full">
-						<img src={tmdb} alt="TMDB" class="size-4" />
+						<img src={tmdb} alt="TMDB" class="size-4" loading="lazy" />
 					</Button>
 
 					<Button href={`https://imdb.com/title/${media.ids.imdb}`} target="_blank" variant="ghost" class="rounded-full">
-						<img src={imdb} alt="IMDB" class="size-4" />
+						<img src={imdb} alt="IMDB" class="size-4" loading="lazy" />
 					</Button>
 
 					<Button href={`https://watch.plex.tv/show/${media.ids.plex.slug}`} target="_blank" variant="ghost" class="rounded-full">
-						<img src={plex} alt="Plex" class="size-4" />
+						<img src={plex} alt="Plex" class="size-4" loading="lazy" />
 					</Button>
 
 					<Button href={`https://thetvdb.com/series/${media.ids.slug}`} target="_blank" variant="ghost" class="rounded-full">
-						<img src={tvdb} alt="TVDB" class="size-4" />
+						<img src={tvdb} alt="TVDB" class="size-4" loading="lazy" />
 					</Button>
 
 					<Button href={media.homepage} target="_blank" variant="ghost" class="rounded-full">
@@ -171,7 +171,7 @@
 			</div>
 		</Tabs.Content>
 
-		<Tabs.Content value="episodes"></Tabs.Content>
+		{#if mediaType === 'show'}
 
 		<Tabs.Content value="images">
 			<div>
