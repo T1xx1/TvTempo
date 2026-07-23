@@ -115,7 +115,7 @@
 
 						{const videoId = new URL(media.trailer).searchParams.get('v')}
 
-						<iframe src={`https://www.youtube.com/embed/${videoId}`} class="rounded-lg aspect-video w-full" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<iframe src={`https://www.youtube.com/embed/${videoId}`} class="rounded-lg aspect-video w-full" title="YouTube" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					</div>
 				{/if}
 
