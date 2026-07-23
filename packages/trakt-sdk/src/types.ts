@@ -570,11 +570,11 @@ export type ShowFull = Show & {
 		timezone: null | string;
 	};
 	/**
-	 * [int]
+	 * [min]
 	 */
 	runtime: null | number;
 	/**
-	 * [int]
+	 * [min]
 	 */
 	total_runtime: number;
 	certification: null | string;
@@ -634,7 +634,7 @@ export type MovieFull = Movie & {
 	 */
 	released: null | string;
 	/**
-	 * [int]
+	 * [min]
 	 */
 	runtime: null | number;
 	country: null | Country;
