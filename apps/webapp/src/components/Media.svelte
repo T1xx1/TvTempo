@@ -22,7 +22,7 @@
 >
 	{#if imgSrc === ''}
 		<div class="size-full flex items-center justify-center">
-			<span class="text-sm">{alt}</span>
+			<span class="text-sm text-center">{alt}</span>
 		</div>
 	{:else}
 		<img src={imgSrc} {alt} class="rounded-lg size-full" loading="lazy" />
