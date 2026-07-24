@@ -1,0 +1,10 @@
+{
+	"appId": "com.tvtempo",
+	"appName": "TvTempo",
+	"webDir": "dist",
+	"plugins": {
+		"SplashScreen": {
+			"launchAutoHide": false
+		}
+	}
+}
