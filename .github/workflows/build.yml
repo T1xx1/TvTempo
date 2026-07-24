@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: apps/mobile
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.14.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.18.0
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm ci
+
+      - name: Capacitor sync
+        run: npx cap sync
+
+      - name: Setup Temurin
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Android
+        uses: android-actions/setup-android@v4
+
+      - name: Gradlew permissions
+        working-directory: apps/mobile/android
+        run: chmod +x gradlew
+
+      - name: Build APK
+        working-directory: apps/mobile/android
+        run: ./gradlew assembleDebug
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build
+          path: apps/mobile/android/app/build/outputs/**/*.apk
