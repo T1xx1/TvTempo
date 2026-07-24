@@ -3,6 +3,8 @@
 	"appName": "TvTempo",
 	"webDir": "src",
 	"server": {
-		"url": "https://tvtempo.vercel.app"
+		"url": "https://tvtempo.vercel.app",
+		"clearText": false,
+		"allowNavigation": ["https://tvtempo.vercel.app"]
 	}
 }
